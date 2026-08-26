@@ -59,9 +59,28 @@ updates:
       day: monday
     open-pull-requests-limit: 3
 
-  # Docker base images
+  # Docker base images. Each update directory contains a Dockerfile; the
+  # repository root is compose-only and therefore has no Docker manifest.
   - package-ecosystem: docker
-    directory: /
+    directory: /backend
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+  - package-ecosystem: docker
+    directory: /frontend
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+  - package-ecosystem: docker
+    directory: /services/embedding-bge-m3
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+  - package-ecosystem: docker
+    directory: /services/reranker-bge
     schedule:
       interval: weekly
       day: monday

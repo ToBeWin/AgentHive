@@ -1,0 +1,8 @@
+title = "AgentHive Gitleaks configuration"
+
+[allowlist]
+description = "Known non-secret identifiers in the checked-in design source and prototype catalog"
+paths = [
+  '''^agenthive-ui\.pen$''',
+  '''^frontend/src/hooks/admin/modelPrototype\.ts$''',
+]

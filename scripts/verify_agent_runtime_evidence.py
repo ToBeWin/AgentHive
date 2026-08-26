@@ -8,12 +8,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SERVICE = ROOT / "backend" / "app" / "services" / "agent_runtime_service.py"
+RUNTIME_DIAGNOSTICS = ROOT / "backend" / "app" / "agents" / "runtime_diagnostics.py"
 SMOKE = ROOT / "scripts" / "smoke_http.py"
 TESTS = ROOT / "backend" / "tests" / "test_agent_knowledge_enrichment.py"
 
 
 def main() -> None:
     service = SERVICE.read_text(encoding="utf-8")
+    runtime_diagnostics = RUNTIME_DIAGNOSTICS.read_text(encoding="utf-8")
     smoke = SMOKE.read_text(encoding="utf-8")
     tests = TESTS.read_text(encoding="utf-8")
 
@@ -33,7 +35,10 @@ def main() -> None:
         "media_generation_task",
         "local_runtime",
     ):
-        require(token in service, f"Runtime summary must classify {token}.")
+        require(
+            token in service or token in runtime_diagnostics,
+            f"Runtime summary must classify {token}.",
+        )
 
     for token in (
         'response.metadata["runtime_summary"]["status"]',

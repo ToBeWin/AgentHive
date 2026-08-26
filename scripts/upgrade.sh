@@ -74,7 +74,7 @@ fi
 
 compose config >/dev/null
 TARGET_VERSION="${AGENTHIVE_VERSION:-$(read_env_value AGENTHIVE_VERSION)}"
-TARGET_VERSION="${TARGET_VERSION:-0.3.0-alpha.1}"
+TARGET_VERSION="${TARGET_VERSION:-0.3.0-alpha.2}"
 
 if [ "${SKIP_BACKUP}" -eq 0 ]; then
     scripts/backup.sh

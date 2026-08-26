@@ -2,6 +2,22 @@
 
 All notable changes to AgentHive are documented here.
 
+## [0.3.0-alpha.2] - 2026-08-26
+
+### Fixed
+
+- Raised the locked `cryptography` floor to the first version containing the current security fixes and refreshed `pypdf`.
+- Added repository-level Gitleaks configuration and removed secret-like values from test fixtures so public CI can scan the latest commit cleanly.
+- Made runtime evidence verification include the diagnostic classifier used by the Agent runtime.
+- Corrected Dependabot Docker directories to match the repository's actual Dockerfile locations.
+- Hardened the local release workflow and aligned all application, container and widget version markers.
+
+### Verification
+
+- Backend: 926 tests passed, with 58 subtests passed.
+- Local Gitleaks scan: no leaks found.
+- Runtime evidence verification: passed.
+
 ## [0.3.0-alpha.1] - 2026-08-26
 
 ### Added

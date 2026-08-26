@@ -9,6 +9,10 @@ from app.core.config import (
 )
 
 
+def _strong_fixture(prefix: str) -> str:
+    return f"{prefix}-" + ("x" * 48)
+
+
 class ProductionConfigGuardTests(unittest.TestCase):
     def setUp(self) -> None:
         self._environment = settings.environment
@@ -87,8 +91,8 @@ class ProductionConfigGuardTests(unittest.TestCase):
         settings.database_url = (
             "postgresql+asyncpg://agenthive:strong-password@postgres:5432/agenthive"
         )
-        settings.secret_key = "prod-secret-0123456789abcdef0123456789abcdef"
-        settings.litellm_master_key = "sk-prod-0123456789abcdef0123456789"
+        settings.secret_key = _strong_fixture("fixture-secret")
+        settings.litellm_master_key = _strong_fixture("fixture-model")
         settings.media_webhook_secret = "media-webhook-0123456789abcdef"
         settings.minio_secret_key = "minio-0123456789abcdef"
         settings.redis_url = "redis://:redis-0123456789abcdef@redis:6379/0"
@@ -103,8 +107,8 @@ class ProductionConfigGuardTests(unittest.TestCase):
     def test_production_rejects_non_postgres_business_database(self):
         settings.environment = "production"
         settings.database_url = "sqlite:///agenthive.db"
-        settings.secret_key = "prod-secret-0123456789abcdef0123456789abcdef"
-        settings.litellm_master_key = "sk-prod-0123456789abcdef0123456789"
+        settings.secret_key = _strong_fixture("fixture-secret")
+        settings.litellm_master_key = _strong_fixture("fixture-model")
         settings.media_webhook_secret = "media-webhook-0123456789abcdef"
         settings.minio_secret_key = "minio-0123456789abcdef"
         settings.redis_url = "redis://:redis-0123456789abcdef@redis:6379/0"
@@ -124,8 +128,8 @@ class ProductionConfigGuardTests(unittest.TestCase):
         settings.database_url = (
             "postgresql+asyncpg://agenthive:strong-password@postgres:5432/agenthive"
         )
-        settings.secret_key = "prod-secret-0123456789abcdef0123456789abcdef"
-        settings.litellm_master_key = "sk-prod-0123456789abcdef0123456789"
+        settings.secret_key = _strong_fixture("fixture-secret")
+        settings.litellm_master_key = _strong_fixture("fixture-model")
         settings.media_webhook_secret = "media-webhook-0123456789abcdef"
         settings.minio_secret_key = "minio-0123456789abcdef"
         settings.redis_url = "redis://:redis-0123456789abcdef@redis:6379/0"
@@ -145,8 +149,8 @@ class ProductionConfigGuardTests(unittest.TestCase):
         settings.database_url = (
             "postgresql+asyncpg://agenthive:strong-password@postgres:5432/agenthive"
         )
-        settings.secret_key = "prod-secret-0123456789abcdef0123456789abcdef"
-        settings.litellm_master_key = "sk-prod-0123456789abcdef0123456789"
+        settings.secret_key = _strong_fixture("fixture-secret")
+        settings.litellm_master_key = _strong_fixture("fixture-model")
         settings.media_webhook_secret = "media-webhook-0123456789abcdef"
         settings.minio_secret_key = "minio-0123456789abcdef"
         settings.redis_url = "redis://:redis-0123456789abcdef@redis:6379/0"
@@ -175,8 +179,8 @@ class ProductionConfigGuardTests(unittest.TestCase):
         settings.database_url = (
             "postgresql+asyncpg://agenthive:strong-password@postgres:5432/agenthive"
         )
-        settings.secret_key = "prod-secret-0123456789abcdef0123456789abcdef"
-        settings.litellm_master_key = "sk-prod-0123456789abcdef0123456789"
+        settings.secret_key = _strong_fixture("fixture-secret")
+        settings.litellm_master_key = _strong_fixture("fixture-model")
         settings.media_webhook_secret = "media-webhook-0123456789abcdef"
         settings.minio_secret_key = "minio-0123456789abcdef"
         settings.redis_url = "redis://:redis-0123456789abcdef@redis:6379/0"
@@ -194,8 +198,8 @@ class ProductionConfigGuardTests(unittest.TestCase):
         settings.database_url = (
             "postgresql+asyncpg://agenthive:strong-password@postgres:5432/agenthive"
         )
-        settings.secret_key = "prod-secret-0123456789abcdef0123456789abcdef"
-        settings.litellm_master_key = "sk-prod-0123456789abcdef0123456789"
+        settings.secret_key = _strong_fixture("fixture-secret")
+        settings.litellm_master_key = _strong_fixture("fixture-model")
         settings.media_webhook_secret = "media-webhook-0123456789abcdef"
         settings.minio_secret_key = "minio-0123456789abcdef"
         settings.redis_url = "redis://:redis-0123456789abcdef@redis:6379/0"
@@ -216,8 +220,8 @@ class ProductionConfigGuardTests(unittest.TestCase):
         settings.database_url = (
             "postgresql+asyncpg://agenthive:strong-password@postgres:5432/agenthive"
         )
-        settings.secret_key = "prod-secret-0123456789abcdef0123456789abcdef"
-        settings.litellm_master_key = "sk-prod-0123456789abcdef0123456789"
+        settings.secret_key = _strong_fixture("fixture-secret")
+        settings.litellm_master_key = _strong_fixture("fixture-model")
         settings.media_webhook_secret = "media-webhook-0123456789abcdef"
         settings.minio_secret_key = "minio-0123456789abcdef"
         settings.redis_url = "redis://:redis-0123456789abcdef@redis:6379/0"

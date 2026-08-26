@@ -285,7 +285,7 @@ License 中的 `maintenance` 字段用于控制客户是否有权获得补丁、
 
 ```bash
 docker compose --env-file .env -f docker-compose.yml run --rm --no-deps backend \
-  python scripts/check_license_upgrade.py --target-version "${AGENTHIVE_VERSION:-0.3.0-alpha.1}"
+  python scripts/check_license_upgrade.py --target-version "${AGENTHIVE_VERSION:-0.3.0-alpha.2}"
 ```
 
 预检要求当前活跃租户 License 为 `active`，部署 ID、安装 ID、机器指纹与运行环境一致，License 未过期，且 `maintenance_until` 晚于当前时间。未通过时，`scripts/upgrade.sh` 会以非 0 状态退出，交付或销售应先签发续费/升级 signed license，再继续升级。

@@ -1,4 +1,4 @@
-FROM agenthive-backend-dev:0.3.0-alpha.1
+FROM agenthive-backend-dev:0.3.0-alpha.2
 
 # Install sentence-transformers (pulls torch CPU + transformers)
 RUN pip install --no-cache-dir "sentence-transformers>=3.0.0"

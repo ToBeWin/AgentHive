@@ -2,7 +2,7 @@ name: agenthive
 
 x-backend-env: &backend-env
   AGENTHIVE_APP_NAME: AgentHive
-  AGENTHIVE_APP_VERSION: ${AGENTHIVE_VERSION:-0.3.0-alpha.1}
+  AGENTHIVE_APP_VERSION: ${AGENTHIVE_VERSION:-0.3.0-alpha.2}
   AGENTHIVE_ENVIRONMENT: production
   DATABASE_URL: postgresql+asyncpg://agenthive:${POSTGRES_PASSWORD}@postgres:5432/agenthive
   REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379/0
@@ -52,7 +52,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    image: agenthive-frontend:${AGENTHIVE_VERSION:-0.3.0-alpha.1}
+    image: agenthive-frontend:${AGENTHIVE_VERSION:-0.3.0-alpha.2}
     build:
       context: ./frontend
     container_name: agenthive-frontend
@@ -65,7 +65,7 @@ services:
       start_period: 10s
 
   backend:
-    image: agenthive-backend:${AGENTHIVE_VERSION:-0.3.0-alpha.1}
+    image: agenthive-backend:${AGENTHIVE_VERSION:-0.3.0-alpha.2}
     build:
       context: ./backend
     container_name: agenthive-backend
@@ -90,7 +90,7 @@ services:
       start_period: 20s
 
   media-worker:
-    image: agenthive-backend:${AGENTHIVE_VERSION:-0.3.0-alpha.1}
+    image: agenthive-backend:${AGENTHIVE_VERSION:-0.3.0-alpha.2}
     build:
       context: ./backend
     container_name: agenthive-media-worker

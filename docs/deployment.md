@@ -345,7 +345,7 @@ scripts/upgrade.sh --diagnostics-output-dir diagnostics/customer-prod-upgrade
 
 ```bash
 docker compose --env-file .env -f docker-compose.yml run --rm --no-deps backend \
-  python scripts/check_license_upgrade.py --target-version "${AGENTHIVE_VERSION:-0.3.0-alpha.1}"
+  python scripts/check_license_upgrade.py --target-version "${AGENTHIVE_VERSION:-0.3.0-alpha.2}"
 ```
 
 该命令不会输出 License Key 或 signed license 原文，只输出租户、客户名、License 类型、维护期、到期时间和阻塞原因。
