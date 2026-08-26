@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgentHive - LLM Models &amp; Providers</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#5c647a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#131b2e",
+                      "primary-container": "#008378",
+                      "secondary-fixed": "#dae2fd",
+                      "tertiary-container": "#727577",
+                      "surface-container-high": "#dce9ff",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#213145",
+                      "on-primary": "#ffffff",
+                      "on-surface-variant": "#3d4947",
+                      "surface-variant": "#d3e4fe",
+                      "surface-tint": "#006a61",
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "surface-dim": "#cbdbf5",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-tertiary-fixed": "#191c1e",
+                      "primary-fixed": "#89f5e7",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "outline": "#6d7a77",
+                      "tertiary": "#595c5e",
+                      "primary": "#00685f",
+                      "background": "#f8f9ff",
+                      "on-background": "#0b1c30",
+                      "outline-variant": "#bcc9c6",
+                      "tertiary-fixed": "#e0e3e5",
+                      "surface": "#f8f9ff",
+                      "on-tertiary": "#ffffff",
+                      "secondary-container": "#dae2fd",
+                      "on-primary-fixed-variant": "#005049",
+                      "on-primary-fixed": "#00201d",
+                      "on-secondary": "#ffffff",
+                      "on-primary-container": "#f4fffc",
+                      "surface-bright": "#f8f9ff",
+                      "surface-container-low": "#eff4ff",
+                      "surface-container": "#e5eeff",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-surface": "#0b1c30",
+                      "inverse-primary": "#6bd8cb",
+                      "secondary": "#565e74",
+                      "on-tertiary-container": "#fbfdff",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "on-secondary-fixed-variant": "#3f465c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "gutter": "16px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "sm": "8px",
+                      "base": "4px",
+                      "xs": "4px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Geist"
+                      ],
+                      "code": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "display": [
+                              "Geist"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "code": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        
+        .badge-active {
+            background-color: rgba(0, 104, 95, 0.1);
+            color: theme('colors.primary');
+        }
+        
+        .badge-error {
+            background-color: rgba(186, 26, 26, 0.1);
+            color: theme('colors.error');
+        }
+        
+        .badge-neutral {
+            background-color: rgba(92, 100, 122, 0.1);
+            color: theme('colors.on-secondary-container');
+        }
+
+        /* Custom Scrollbar for horizontal scrolling area */
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface fixed top-0 right-0 w-[calc(100%-240px)] h-16 border-b border-outline-variant flat no shadows flex items-center justify-between px-xl w-full z-10 hidden md:flex">
+<div class="flex items-center gap-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Models</h1>
+<nav class="flex items-center gap-md">
+<!-- Tabs if needed within the app bar context, but usually handled by side nav -->
+</nav>
+</div>
+<div class="flex items-center gap-md text-on-surface-variant">
+<button class="hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">language</span>
+</button>
+<button class="hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="bg-surface fixed left-0 top-0 h-full w-[240px] border-r border-outline-variant flat no shadows flex flex-col h-full p-md gap-sm z-20 hidden md:flex">
+<div class="mb-xl px-3 py-2">
+<h2 class="font-headline-md text-headline-md font-bold text-primary">AgentHive</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Enterprise AI Platform</p>
+</div>
+<nav class="flex-1 overflow-y-auto hide-scroll flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-md text-label-md">Agents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">extension</span>
+<span class="font-label-md text-label-md">Agent Modules</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="font-label-md text-label-md">Knowledge Bases</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-md text-label-md">Chat Console</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-label-md text-label-md">Channels</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">model_training</span>
+<span class="font-label-md text-label-md">Models</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Budgets &amp; Costs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">corporate_fare</span>
+<span class="font-label-md text-label-md">Departments &amp; Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-label-md text-label-md">Audit Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-md text-label-md">License</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-[240px] pt-16 min-h-screen">
+<div class="max-w-[container-max] mx-auto p-xl flex flex-col gap-xl">
+<!-- Page Header Actions -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">LLM Models &amp; Providers</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-sm">Configure API keys, manage model deployments, and set routing policies.</p>
+</div>
+<div class="flex gap-md">
+<button class="px-md py-sm bg-surface-container-lowest border border-outline-variant rounded text-on-background font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+                        Test Connection
+                    </button>
+<button class="px-md py-sm bg-primary rounded text-on-primary font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                        Add Model
+                    </button>
+</div>
+</div>
+<!-- Provider List (Bento Grid Style) -->
+<section>
+<h3 class="font-headline-md text-headline-md text-on-background mb-md">Connected Providers</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-md">
+<!-- Provider Card: OpenAI -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start mb-lg">
+<div class="w-10 h-10 bg-surface-variant rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<span class="font-label-md text-label-md badge badge-active">Connected</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-background">OpenAI</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">key</span>
+<span class="font-code text-code text-on-surface-variant">sk-proj-...8f9a</span>
+</div>
+</div>
+</div>
+<!-- Provider Card: Anthropic -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start mb-lg">
+<div class="w-10 h-10 bg-surface-variant rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">psychology</span>
+</div>
+<span class="font-label-md text-label-md badge badge-active">Connected</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-background">Anthropic</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">key</span>
+<span class="font-code text-code text-on-surface-variant">sk-ant-...22b1</span>
+</div>
+</div>
+</div>
+<!-- Provider Card: Google -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start mb-lg">
+<div class="w-10 h-10 bg-surface-variant rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">search</span>
+</div>
+<span class="font-label-md text-label-md badge badge-active">Connected</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-background">Google Vertex</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">account_tree</span>
+<span class="font-code text-code text-on-surface-variant">Service Account</span>
+</div>
+</div>
+</div>
+<!-- Provider Card: DeepSeek -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start mb-lg">
+<div class="w-10 h-10 bg-surface-variant rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">explore</span>
+</div>
+<span class="font-label-md text-label-md badge badge-error">Error</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-background">DeepSeek</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-[14px] text-error">warning</span>
+<span class="font-code text-code text-error">Auth Failed</span>
+</div>
+</div>
+</div>
+<!-- Provider Card: Ollama (Local) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md flex flex-col justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start mb-lg">
+<div class="w-10 h-10 bg-surface-variant rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">dns</span>
+</div>
+<span class="font-label-md text-label-md badge badge-active">Local</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg font-semibold text-on-background">Ollama</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">router</span>
+<span class="font-code text-code text-on-surface-variant">http://localhost:11434</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-xl">
+<!-- Model Deployments Table -->
+<section class="xl:col-span-2 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-background mb-md">Model Deployments</h3>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface border-b border-outline-variant">
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant font-medium">Model Name</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant font-medium">Provider &amp; Type</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant font-medium">Capabilities</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant font-medium">Status</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant font-medium text-right">Latency</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group">
+<td class="py-[8px] px-md font-code">gpt-4o</td>
+<td class="py-[8px] px-md">
+<div class="flex items-center gap-2">
+<span>OpenAI</span>
+<span class="text-on-surface-variant opacity-50">|</span>
+<span class="text-on-surface-variant">LLM</span>
+</div>
+</td>
+<td class="py-[8px] px-md">
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary" title="Streaming">water_drop</span>
+<span class="material-symbols-outlined text-[16px] text-primary" title="Tools">build</span>
+<span class="material-symbols-outlined text-[16px] text-primary" title="Vision">visibility</span>
+</div>
+</td>
+<td class="py-[8px] px-md"><span class="font-label-md badge badge-active">Active</span></td>
+<td class="py-[8px] px-md text-right text-on-surface-variant">420ms</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group">
+<td class="py-[8px] px-md font-code">claude-3-5-sonnet</td>
+<td class="py-[8px] px-md">
+<div class="flex items-center gap-2">
+<span>Anthropic</span>
+<span class="text-on-surface-variant opacity-50">|</span>
+<span class="text-on-surface-variant">LLM</span>
+</div>
+</td>
+<td class="py-[8px] px-md">
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary" title="Streaming">water_drop</span>
+<span class="material-symbols-outlined text-[16px] text-primary" title="Tools">build</span>
+<span class="material-symbols-outlined text-[16px] text-primary" title="Vision">visibility</span>
+</div>
+</td>
+<td class="py-[8px] px-md"><span class="font-label-md badge badge-active">Active</span></td>
+<td class="py-[8px] px-md text-right text-on-surface-variant">380ms</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group">
+<td class="py-[8px] px-md font-code">gemini-1.5-pro</td>
+<td class="py-[8px] px-md">
+<div class="flex items-center gap-2">
+<span>Google</span>
+<span class="text-on-surface-variant opacity-50">|</span>
+<span class="text-on-surface-variant">LLM</span>
+</div>
+</td>
+<td class="py-[8px] px-md">
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary" title="Streaming">water_drop</span>
+<span class="material-symbols-outlined text-[16px] text-primary" title="Tools">build</span>
+<span class="material-symbols-outlined text-[16px] text-primary" title="Vision">visibility</span>
+</div>
+</td>
+<td class="py-[8px] px-md"><span class="font-label-md badge badge-active">Active</span></td>
+<td class="py-[8px] px-md text-right text-on-surface-variant">510ms</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors group">
+<td class="py-[8px] px-md font-code">text-embedding-3-large</td>
+<td class="py-[8px] px-md">
+<div class="flex items-center gap-2">
+<span>OpenAI</span>
+<span class="text-on-surface-variant opacity-50">|</span>
+<span class="text-on-surface-variant">Embedding</span>
+</div>
+</td>
+<td class="py-[8px] px-md">
+<div class="flex gap-1">
+<!-- Empty for embeddings usually -->
+</div>
+</td>
+<td class="py-[8px] px-md"><span class="font-label-md badge badge-active">Active</span></td>
+<td class="py-[8px] px-md text-right text-on-surface-variant">85ms</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-[8px] px-md font-code">llama3-8b</td>
+<td class="py-[8px] px-md">
+<div class="flex items-center gap-2">
+<span>Ollama</span>
+<span class="text-on-surface-variant opacity-50">|</span>
+<span class="text-on-surface-variant">LLM</span>
+</div>
+</td>
+<td class="py-[8px] px-md">
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary" title="Streaming">water_drop</span>
+</div>
+</td>
+<td class="py-[8px] px-md"><span class="font-label-md badge badge-neutral">Standby</span></td>
+<td class="py-[8px] px-md text-right text-on-surface-variant">120ms</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Global Fallback Routing Configuration -->
+<section class="xl:col-span-1 flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-background mb-md">Global Routing</h3>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-xl flex-1 flex flex-col">
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg">
+                            Configure tenant-wide fallback models. If an agent's specific model fails or rate-limits, requests will cascade down this list.
+                        </p>
+<div class="flex flex-col gap-md flex-1">
+<!-- Primary -->
+<div class="flex items-center gap-md p-md border border-outline-variant rounded bg-surface relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l"></div>
+<span class="material-symbols-outlined text-on-surface-variant">looks_one</span>
+<div class="flex-1">
+<label class="font-label-md text-label-md text-on-surface-variant block mb-1">Primary Route</label>
+<select class="w-full bg-transparent border-none p-0 font-body-md text-body-md focus:ring-0 cursor-pointer">
+<option>gpt-4o (OpenAI)</option>
+<option>claude-3-5-sonnet (Anthropic)</option>
+</select>
+</div>
+</div>
+<div class="flex justify-center -my-2 z-10 relative">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-full p-1">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">arrow_downward</span>
+</div>
+</div>
+<!-- Secondary -->
+<div class="flex items-center gap-md p-md border border-outline-variant rounded bg-surface relative">
+<span class="material-symbols-outlined text-on-surface-variant">looks_two</span>
+<div class="flex-1">
+<label class="font-label-md text-label-md text-on-surface-variant block mb-1">Secondary Fallback</label>
+<select class="w-full bg-transparent border-none p-0 font-body-md text-body-md focus:ring-0 cursor-pointer">
+<option>claude-3-5-sonnet (Anthropic)</option>
+<option>gpt-4o (OpenAI)</option>
+<option>gemini-1.5-pro (Google)</option>
+</select>
+</div>
+</div>
+<div class="flex justify-center -my-2 z-10 relative">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-full p-1">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">arrow_downward</span>
+</div>
+</div>
+<!-- Tertiary -->
+<div class="flex items-center gap-md p-md border border-outline-variant rounded bg-surface relative opacity-70 border-dashed">
+<span class="material-symbols-outlined text-on-surface-variant">looks_3</span>
+<div class="flex-1">
+<label class="font-label-md text-label-md text-on-surface-variant block mb-1">Tertiary Fallback</label>
+<select class="w-full bg-transparent border-none p-0 font-body-md text-body-md focus:ring-0 cursor-pointer text-on-surface-variant">
+<option>llama3-8b (Ollama)</option>
+<option>None</option>
+</select>
+</div>
+</div>
+</div>
+<div class="mt-lg pt-md border-t border-outline-variant flex justify-end">
+<button class="px-md py-sm bg-primary rounded text-on-primary font-label-md text-label-md hover:opacity-90 transition-opacity">
+                                Save Policy
+                            </button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

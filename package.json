@@ -1,0 +1,11 @@
+{
+  "name": "agenthive",
+  "private": true,
+  "version": "0.3.0-alpha.1",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview",
+    "check": "npm --prefix frontend run check && python3 scripts/verify_agent_runtime_evidence.py && scripts/verify-delivery-scripts.sh"
+  }
+}

@@ -1,0 +1,107 @@
+name: agenthive-infra
+
+x-default-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: agenthive-infra-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-agenthive}
+      POSTGRES_USER: ${POSTGRES_USER:-agenthive}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      LITELLM_POSTGRES_DB: ${LITELLM_POSTGRES_DB:-litellm}
+    command:
+      - postgres
+      - -c
+      - shared_buffers=${POSTGRES_SHARED_BUFFERS:-512MB}
+      - -c
+      - max_connections=${POSTGRES_MAX_CONNECTIONS:-80}
+      - -c
+      - effective_cache_size=${POSTGRES_EFFECTIVE_CACHE_SIZE:-1536MB}
+    ports:
+      - "${POSTGRES_BIND_HOST:-127.0.0.1}:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_infra_data:/var/lib/postgresql/data
+      - ./infra/postgres/init:/docker-entrypoint-initdb.d:ro
+    shm_size: 256mb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-agenthive} -d ${POSTGRES_DB:-agenthive}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    logging: *default-logging
+
+  redis:
+    image: redis:7-alpine
+    container_name: agenthive-infra-redis
+    command:
+      - redis-server
+      - --appendonly
+      - "yes"
+      - --requirepass
+      - ${REDIS_PASSWORD}
+      - --maxmemory
+      - ${REDIS_MAXMEMORY:-384mb}
+      - --maxmemory-policy
+      - allkeys-lru
+    ports:
+      - "${REDIS_BIND_HOST:-127.0.0.1}:${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_infra_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    logging: *default-logging
+
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: agenthive-infra-minio
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-agenthive}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    ports:
+      - "${MINIO_BIND_HOST:-127.0.0.1}:${MINIO_API_PORT:-9000}:9000"
+      - "${MINIO_BIND_HOST:-127.0.0.1}:${MINIO_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - minio_infra_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    logging: *default-logging
+
+  litellm:
+    image: ${LITELLM_IMAGE:-ghcr.io/berriai/litellm:sha256-a1745e629abfb17d434426ff48b115f54f4f4c4a0f5af241de569e93c63c411e}
+    container_name: agenthive-infra-litellm
+    command: ["--config", "/app/config.yaml", "--port", "4000", "--host", "0.0.0.0"]
+    environment:
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-agenthive}:${POSTGRES_PASSWORD_URLENCODED}@postgres:5432/${LITELLM_POSTGRES_DB:-litellm}
+      STORE_MODEL_IN_DB: "True"
+      OPENAI_COMPATIBLE_API_KEY: ${OPENAI_COMPATIBLE_API_KEY:-sk-agenthive-placeholder}
+    ports:
+      - "${LITELLM_BIND_HOST:-127.0.0.1}:${LITELLM_PORT:-4000}:4000"
+    volumes:
+      - ${LITELLM_CONFIG_FILE:-./infra/litellm/config.yaml}:/app/config.yaml:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    logging: *default-logging
+
+volumes:
+  postgres_infra_data:
+  redis_infra_data:
+  minio_infra_data:

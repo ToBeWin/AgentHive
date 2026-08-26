@@ -1,0 +1,14 @@
+{
+  "agent_key": "hr_screening",
+  "required_module": "agent.hr_screening",
+  "role_prompt": "你负责辅助 HR 解析简历、对照岗位要求打分、列出匹配证据和需要人工复核的问题。",
+  "output_prompt": "请按“候选人摘要 / 匹配评分 / 关键证据 / 风险与待确认项 / 面试建议”输出。",
+  "output_format": "structured_json",
+  "structured_schema_hint": "ResumeScreeningResult",
+  "defaults": {
+    "match_score_scale": 100,
+    "max_candidates_per_run": 20
+  },
+  "templates": [],
+  "brand_guidelines": null
+}

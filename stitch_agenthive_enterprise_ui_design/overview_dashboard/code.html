@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgentHive - Overview Dashboard</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#5c647a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#131b2e",
+                        "primary-container": "#008378",
+                        "secondary-fixed": "#dae2fd",
+                        "tertiary-container": "#727577",
+                        "surface-container-high": "#dce9ff",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#213145",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#3d4947",
+                        "surface-variant": "#d3e4fe",
+                        "surface-tint": "#006a61",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed": "#191c1e",
+                        "primary-fixed": "#89f5e7",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "outline": "#6d7a77",
+                        "tertiary": "#595c5e",
+                        "primary": "#00685f",
+                        "background": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "outline-variant": "#bcc9c6",
+                        "tertiary-fixed": "#e0e3e5",
+                        "surface": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#dae2fd",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-primary-fixed": "#00201d",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#f4fffc",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#6bd8cb",
+                        "secondary": "#565e74",
+                        "on-tertiary-container": "#fbfdff",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-secondary-fixed-variant": "#3f465c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Geist"],
+                        "code": ["JetBrains Mono"],
+                        "headline-md": ["Geist"],
+                        "body-md": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "display": ["Geist"],
+                        "label-md": ["Geist"],
+                        "body-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "code": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        /* Custom scrollbar for high density data tables */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bcc9c6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6d7a77; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-hidden">
+<!-- App Container -->
+<div class="flex h-screen w-full">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-inverse-surface border-r border-outline-variant dark:border-outline fixed left-0 top-0 h-full w-[240px] flex flex-col p-md gap-sm z-20">
+<!-- Brand -->
+<div class="flex flex-col mb-lg px-3">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed tracking-tight">AgentHive</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-1">Enterprise AI Platform</span>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-base flex-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined fill text-[20px]" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="smart_toy">smart_toy</span>
+<span class="font-body-md text-body-md">Agents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="extension">extension</span>
+<span class="font-body-md text-body-md">Agent Modules</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="database">database</span>
+<span class="font-body-md text-body-md">Knowledge Bases</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat">chat</span>
+<span class="font-body-md text-body-md">Chat Console</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="hub">hub</span>
+<span class="font-body-md text-body-md">Channels</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="model_training">model_training</span>
+<span class="font-body-md text-body-md">Models</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="payments">payments</span>
+<span class="font-body-md text-body-md">Budgets &amp; Costs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="corporate_fare">corporate_fare</span>
+<span class="font-body-md text-body-md">Departments &amp; Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="history_edu">history_edu</span>
+<span class="font-body-md text-body-md">Audit Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="workspace_premium">workspace_premium</span>
+<span class="font-body-md text-body-md">License</span>
+</a>
+</div>
+<div class="mt-auto pt-md border-t border-outline-variant">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[240px] flex flex-col h-full bg-surface-container-lowest">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline fixed top-0 right-0 w-[calc(100%-240px)] h-16 flex items-center justify-between px-xl z-10">
+<div class="flex-1 flex items-center gap-4">
+<!-- Global Search Placeholder -->
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full bg-surface-container border border-outline-variant rounded-lg pl-8 pr-3 py-1.5 font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search resources..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="language">language</span>
+</button>
+<button class="hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80 flex items-center justify-center relative">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full border border-surface"></span>
+</button>
+<button class="hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<div class="flex-1 pt-16 overflow-y-auto p-lg">
+<div class="max-w-container-max mx-auto flex flex-col gap-lg">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-sm">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background">Overview <span class="font-body-md text-on-surface-variant ml-2 font-normal">概览</span></h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Platform telemetry and operational metrics.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-2 px-4 py-2 border border-outline-variant bg-surface rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                                Last 30 Days
+                            </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-surface-tint transition-colors">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                                Export Report
+                            </button>
+</div>
+</div>
+<!-- KPI Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- KPI Card 1 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col gap-2 relative overflow-hidden">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-md text-label-md uppercase tracking-wider">Total Conversations <span class="ml-1 text-outline opacity-70">总对话</span></span>
+<span class="material-symbols-outlined text-[18px]">forum</span>
+</div>
+<div class="font-display text-display text-on-background mt-2">1.24M</div>
+<div class="flex items-center gap-1 font-body-sm text-body-sm text-primary">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>+12.5% vs last month</span>
+</div>
+</div>
+<!-- KPI Card 2 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col gap-2">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-md text-label-md uppercase tracking-wider">Active Agents <span class="ml-1 text-outline opacity-70">活跃智能体</span></span>
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+</div>
+<div class="font-display text-display text-on-background mt-2">48</div>
+<div class="flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<span>Out of 65 deployed</span>
+</div>
+</div>
+<!-- KPI Card 3 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col gap-2">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-md text-label-md uppercase tracking-wider">Monthly Model Cost <span class="ml-1 text-outline opacity-70">月度模型成本</span></span>
+<span class="material-symbols-outlined text-[18px]">payments</span>
+</div>
+<div class="font-display text-display text-on-background mt-2">$14,250</div>
+<div class="flex items-center gap-1 font-body-sm text-body-sm text-error">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>+4.2% over budget</span>
+</div>
+</div>
+<!-- KPI Card 4 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col gap-2">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-md text-label-md uppercase tracking-wider">Token Usage (B) <span class="ml-1 text-outline opacity-70">Token使用量</span></span>
+<span class="material-symbols-outlined text-[18px]">data_usage</span>
+</div>
+<div class="font-display text-display text-on-background mt-2">3.8</div>
+<div class="flex items-center gap-1 font-body-sm text-body-sm text-primary">
+<span class="material-symbols-outlined text-[14px]">trending_down</span>
+<span>-2.1% optimization gain</span>
+</div>
+</div>
+</div>
+<!-- Main Charts Area (Bento Layout) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Token Usage Over Time (Spans 2 cols) -->
+<div class="lg:col-span-2 bg-surface border border-outline-variant rounded-lg p-md flex flex-col h-[320px]">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-headline-md text-on-background">Token Usage Over Time <span class="font-body-sm text-on-surface-variant ml-2 font-normal">Token使用趋势</span></h3>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 font-label-md text-label-md text-on-surface-variant"><div class="w-2 h-2 rounded-full bg-primary"></div> Input</span>
+<span class="flex items-center gap-1 font-label-md text-label-md text-on-surface-variant"><div class="w-2 h-2 rounded-full bg-tertiary-container"></div> Output</span>
+</div>
+</div>
+<!-- Mock Chart Area - Structural CSS Representation -->
+<div class="flex-1 border-b border-l border-outline-variant relative flex items-end pt-8 pb-1 px-2 gap-2">
+<!-- Y Axis labels -->
+<div class="absolute -left-8 top-0 bottom-0 flex flex-col justify-between font-code text-code text-outline-variant py-2">
+<span>200M</span><span>100M</span><span>0</span>
+</div>
+<!-- Grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="border-t border-outline-variant/30 w-full h-0 mt-[10%]"></div>
+<div class="border-t border-outline-variant/30 w-full h-0 mt-[40%]"></div>
+<div class="border-t border-outline-variant/30 w-full h-0 mt-[80%]"></div>
+</div>
+<!-- Bars (Mock Data) -->
+<div class="flex-1 flex flex-col justify-end gap-1 relative z-10 group">
+<div class="w-full bg-tertiary-container rounded-t-sm" style="height: 30%"></div>
+<div class="w-full bg-primary rounded-t-sm" style="height: 45%"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 relative z-10">
+<div class="w-full bg-tertiary-container rounded-t-sm" style="height: 35%"></div>
+<div class="w-full bg-primary rounded-t-sm" style="height: 50%"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 relative z-10">
+<div class="w-full bg-tertiary-container rounded-t-sm" style="height: 40%"></div>
+<div class="w-full bg-primary rounded-t-sm" style="height: 65%"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 relative z-10">
+<div class="w-full bg-tertiary-container rounded-t-sm" style="height: 25%"></div>
+<div class="w-full bg-primary rounded-t-sm" style="height: 40%"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 relative z-10">
+<div class="w-full bg-tertiary-container rounded-t-sm" style="height: 50%"></div>
+<div class="w-full bg-primary rounded-t-sm" style="height: 80%"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 relative z-10">
+<div class="w-full bg-tertiary-container rounded-t-sm" style="height: 45%"></div>
+<div class="w-full bg-primary rounded-t-sm" style="height: 70%"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 relative z-10">
+<div class="w-full bg-tertiary-container rounded-t-sm" style="height: 30%"></div>
+<div class="w-full bg-primary rounded-t-sm" style="height: 55%"></div>
+</div>
+</div>
+<!-- X Axis labels -->
+<div class="flex justify-between mt-2 font-code text-code text-outline-variant px-2">
+<span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+</div>
+</div>
+<!-- Department Cost Ranking -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col h-[320px]">
+<h3 class="font-headline-md text-headline-md text-on-background mb-4">Cost by Dept <span class="font-body-sm text-on-surface-variant ml-2 font-normal">部门成本</span></h3>
+<div class="flex-1 flex flex-col gap-3 overflow-y-auto pr-2">
+<!-- Row 1 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span class="text-on-background">Customer Support</span>
+<span class="font-code text-on-surface-variant">$6,420</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span class="text-on-background">Engineering (R&amp;D)</span>
+<span class="font-code text-on-surface-variant">$4,150</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full opacity-80" style="width: 60%"></div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span class="text-on-background">Sales Operations</span>
+<span class="font-code text-on-surface-variant">$2,100</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full opacity-60" style="width: 35%"></div>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span class="text-on-background">Marketing Data</span>
+<span class="font-code text-on-surface-variant">$1,580</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full opacity-40" style="width: 20%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tables & Status Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Model Performance Table (Spans 2 cols) -->
+<div class="lg:col-span-2 bg-surface border border-outline-variant rounded-lg p-md flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-headline-md text-on-background">Model Performance <span class="font-body-sm text-on-surface-variant ml-2 font-normal">模型性能</span></h3>
+<button class="font-label-md text-primary hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant font-label-md text-label-md text-on-surface-variant uppercase bg-surface-container-low">
+<th class="p-sm font-medium">Provider / Model</th>
+<th class="p-sm font-medium">Avg Latency</th>
+<th class="p-sm font-medium">Error Rate</th>
+<th class="p-sm font-medium">Requests/min</th>
+<th class="p-sm font-medium text-right">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-background">
+<tr class="border-b border-outline-variant/50 hover:bg-surface-container-low/50 transition-colors">
+<td class="p-sm font-medium flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-code text-[10px]">OA</span>
+                                                GPT-4-Turbo
+                                            </td>
+<td class="p-sm font-code text-on-surface-variant">845ms</td>
+<td class="p-sm font-code text-primary">0.02%</td>
+<td class="p-sm font-code text-on-surface-variant">1,420</td>
+<td class="p-sm text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-primary/10 text-primary font-label-md text-[10px]">HEALTHY</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/50 hover:bg-surface-container-low/50 transition-colors">
+<td class="p-sm font-medium flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-secondary-container text-on-secondary-container flex items-center justify-center font-code text-[10px]">AN</span>
+                                                Claude-3-Opus
+                                            </td>
+<td class="p-sm font-code text-on-surface-variant">1,120ms</td>
+<td class="p-sm font-code text-primary">0.05%</td>
+<td class="p-sm font-code text-on-surface-variant">850</td>
+<td class="p-sm text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-primary/10 text-primary font-label-md text-[10px]">HEALTHY</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/50 hover:bg-surface-container-low/50 transition-colors">
+<td class="p-sm font-medium flex items-center gap-2">
+<span class="w-6 h-6 rounded bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-code text-[10px]">MS</span>
+                                                Azure-GPT-3.5
+                                            </td>
+<td class="p-sm font-code text-on-surface-variant">420ms</td>
+<td class="p-sm font-code text-error">1.20%</td>
+<td class="p-sm font-code text-on-surface-variant">3,100</td>
+<td class="p-sm text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-error/10 text-error font-label-md text-[10px]">DEGRADED</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- License & System Status -->
+<div class="flex flex-col gap-md">
+<!-- License Card -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col relative overflow-hidden">
+<!-- Abstract Background Element -->
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-xl pointer-events-none"></div>
+<h3 class="font-headline-md text-headline-md text-on-background mb-1">License Status <span class="font-body-sm text-on-surface-variant ml-2 font-normal">许可证状态</span></h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Enterprise Edition - v2.4.1</p>
+<div class="bg-surface-container-low rounded p-sm flex items-center justify-between mb-4 border border-outline-variant/50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+<span class="font-label-md text-label-md text-on-background font-bold">ACTIVE</span>
+</div>
+<span class="font-code text-body-sm text-on-surface-variant">Expires in 120 days</span>
+</div>
+<div class="mt-auto pt-2 border-t border-outline-variant/50 flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Seats: 240/500</span>
+<button class="font-label-md text-primary hover:underline">Manage</button>
+</div>
+</div>
+<!-- Audit Events Mini -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col flex-1">
+<div class="flex justify-between items-center mb-3">
+<h3 class="font-body-md text-on-background font-semibold">Recent Activity</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">history</span>
+</div>
+<div class="flex flex-col gap-3 font-body-sm text-body-sm">
+<div class="flex items-start gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></div>
+<div>
+<p class="text-on-background line-clamp-1">System Prompt updated for <span class="font-code bg-surface-container px-1 rounded">Support_Agent_v2</span></p>
+<p class="font-code text-[11px] text-outline mt-0.5">2 mins ago • admin@agenthive.internal</p>
+</div>
+</div>
+<div class="flex items-start gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-error mt-1.5 shrink-0"></div>
+<div>
+<p class="text-on-background line-clamp-1">Model Fallback triggered for Sales Channel</p>
+<p class="font-code text-[11px] text-outline mt-0.5">14 mins ago • SYSTEM</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

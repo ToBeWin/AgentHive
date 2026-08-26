@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgentHive - Agents Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#5c647a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#131b2e",
+                      "primary-container": "#008378",
+                      "secondary-fixed": "#dae2fd",
+                      "tertiary-container": "#727577",
+                      "surface-container-high": "#dce9ff",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#213145",
+                      "on-primary": "#ffffff",
+                      "on-surface-variant": "#3d4947",
+                      "surface-variant": "#d3e4fe",
+                      "surface-tint": "#006a61",
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "surface-dim": "#cbdbf5",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-tertiary-fixed": "#191c1e",
+                      "primary-fixed": "#89f5e7",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "outline": "#6d7a77",
+                      "tertiary": "#595c5e",
+                      "primary": "#00685f",
+                      "background": "#f8f9ff",
+                      "on-background": "#0b1c30",
+                      "outline-variant": "#bcc9c6",
+                      "tertiary-fixed": "#e0e3e5",
+                      "surface": "#f8f9ff",
+                      "on-tertiary": "#ffffff",
+                      "secondary-container": "#dae2fd",
+                      "on-primary-fixed-variant": "#005049",
+                      "on-primary-fixed": "#00201d",
+                      "on-secondary": "#ffffff",
+                      "on-primary-container": "#f4fffc",
+                      "surface-bright": "#f8f9ff",
+                      "surface-container-low": "#eff4ff",
+                      "surface-container": "#e5eeff",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-surface": "#0b1c30",
+                      "inverse-primary": "#6bd8cb",
+                      "secondary": "#565e74",
+                      "on-tertiary-container": "#fbfdff",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "teal-primary": "#0D9488"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "gutter": "16px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "sm": "8px",
+                      "base": "4px",
+                      "xs": "4px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Geist"
+                      ],
+                      "code": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "display": [
+                              "Geist"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "code": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body { background-color: #F8FAFC; }
+        .table-container { max-height: calc(100vh - 180px); }
+        .table-container::-webkit-scrollbar { width: 8px; height: 8px; }
+        .table-container::-webkit-scrollbar-track { background: transparent; }
+        .table-container::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
+        .drawer-overlay { backdrop-filter: blur(2px); }
+        .drawer-shadow { box-shadow: -10px 0 20px -5px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="font-body-md text-on-surface bg-background antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-inverse-surface fixed left-0 top-0 h-full w-[240px] border-r border-outline-variant dark:border-outline flex flex-col h-full p-md gap-sm hidden md:flex z-40 bg-surface-container-lowest">
+<div class="flex items-center gap-sm px-3 py-4 mb-4">
+<span class="material-symbols-outlined text-primary text-[28px]">hub</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">AgentHive</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Enterprise AI Platform</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 flex-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span>Agents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">extension</span>
+<span>Agent Modules</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">database</span>
+<span>Knowledge Bases</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+<span>Chat Console</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+<span>Channels</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">model_training</span>
+<span>Models</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span>Budgets &amp; Costs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">corporate_fare</span>
+<span>Departments &amp; Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+<span>Audit Logs</span>
+</a>
+</div>
+<div class="flex flex-col gap-1 mt-auto pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">workspace_premium</span>
+<span>License</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-lg font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<!-- TopAppBar & Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-[240px] relative w-full">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline h-16 flex items-center justify-between px-xl w-full z-30 bg-surface-container-lowest sticky top-0">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-md text-headline-md font-semibold text-on-surface hidden md:block">Agents Management</h1>
+<h1 class="font-headline-md text-headline-md font-semibold text-on-surface md:hidden">AgentHive</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="pl-10 pr-4 py-1.5 border border-outline-variant rounded bg-surface focus:ring-2 focus:ring-primary focus:border-primary font-body-sm text-body-sm w-64 transition-all" placeholder="Search agents..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]">language</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer active:opacity-80 relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Workspace Canvas -->
+<main class="flex-1 p-lg overflow-hidden flex flex-col relative w-full max-w-[1440px] mx-auto">
+<!-- Action Bar -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-lg">
+<div class="flex items-center gap-3">
+<div class="flex bg-surface-container-lowest border border-outline-variant rounded-lg p-1">
+<button class="px-3 py-1 text-on-surface font-label-md text-label-md bg-surface-container-low rounded">All (42)</button>
+<button class="px-3 py-1 text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-lowest rounded transition-colors">Active (38)</button>
+<button class="px-3 py-1 text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-lowest rounded transition-colors">Idle (4)</button>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 bg-surface-container-lowest border border-outline-variant text-on-surface rounded font-label-md text-label-md flex items-center gap-2 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]">publish</span>
+                        Publish All
+                    </button>
+<button class="px-4 py-2 bg-[#0D9488] text-white rounded font-label-md text-label-md flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                        Create Agent
+                    </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg flex-1 overflow-hidden flex flex-col shadow-sm">
+<div class="overflow-x-auto table-container">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-lowest border-b border-outline-variant z-10 shadow-sm">
+<tr>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap"><div class="flex items-center gap-2">Name <span class="material-symbols-outlined text-[16px]">arrow_downward</span></div></th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">Module</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">Department</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">Model</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">Status</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap text-right">Conversations</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap text-right">Monthly Cost</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap">Owner</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap text-right">Last Updated</th>
+<th class="p-3 font-label-md text-label-md text-on-surface-variant font-medium whitespace-nowrap w-10"></th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface divide-y divide-outline-variant">
+<!-- Row 1 (Selected) -->
+<tr class="hover:bg-[#F1F5F9] transition-colors cursor-pointer bg-[#F1F5F9]" onclick="toggleDrawer()">
+<td class="p-3 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-headline-md text-headline-md font-bold">C</div>
+<div>
+<div class="font-medium">Customer Support Tier 1</div>
+<div class="text-on-surface-variant font-label-md text-label-md">cust-support-v2</div>
+</div>
+</div>
+</td>
+<td class="p-3 whitespace-nowrap">Resolution Bot</td>
+<td class="p-3 whitespace-nowrap">Customer Success</td>
+<td class="p-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-low text-on-surface border border-outline-variant">
+<span class="material-symbols-outlined text-[14px]">psychology</span> GPT-4o
+                                    </span>
+</td>
+<td class="p-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded font-label-md text-label-md uppercase tracking-wide" style="background-color: rgba(13, 148, 136, 0.1); color: #0D9488;">
+<span class="w-1.5 h-1.5 rounded-full bg-[#0D9488]"></span> Active
+                                    </span>
+</td>
+<td class="p-3 whitespace-nowrap text-right font-code text-code">14,239</td>
+<td class="p-3 whitespace-nowrap text-right font-code text-code">$450.20</td>
+<td class="p-3 whitespace-nowrap">S. Miller</td>
+<td class="p-3 whitespace-nowrap text-right text-on-surface-variant">2h ago</td>
+<td class="p-3 whitespace-nowrap text-right">
+<button class="p-1 text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-[#F1F5F9] transition-colors cursor-pointer border-t border-outline-variant">
+<td class="p-3 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high text-on-surface flex items-center justify-center font-headline-md text-headline-md font-bold">L</div>
+<div>
+<div class="font-medium">Lead Gen Qualifier</div>
+<div class="text-on-surface-variant font-label-md text-label-md">sales-inbound</div>
+</div>
+</div>
+</td>
+<td class="p-3 whitespace-nowrap">Inbound Sales</td>
+<td class="p-3 whitespace-nowrap">Sales</td>
+<td class="p-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-low text-on-surface border border-outline-variant">
+<span class="material-symbols-outlined text-[14px]">psychology</span> Claude 3.5 Sonnet
+                                    </span>
+</td>
+<td class="p-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded font-label-md text-label-md uppercase tracking-wide" style="background-color: rgba(13, 148, 136, 0.1); color: #0D9488;">
+<span class="w-1.5 h-1.5 rounded-full bg-[#0D9488]"></span> Active
+                                    </span>
+</td>
+<td class="p-3 whitespace-nowrap text-right font-code text-code">3,892</td>
+<td class="p-3 whitespace-nowrap text-right font-code text-code">$124.50</td>
+<td class="p-3 whitespace-nowrap">A. Chen</td>
+<td class="p-3 whitespace-nowrap text-right text-on-surface-variant">1d ago</td>
+<td class="p-3 whitespace-nowrap text-right">
+<button class="p-1 text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-[#F1F5F9] transition-colors cursor-pointer border-t border-outline-variant">
+<td class="p-3 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high text-on-surface flex items-center justify-center font-headline-md text-headline-md font-bold">H</div>
+<div>
+<div class="font-medium">HR Policy Assistant</div>
+<div class="text-on-surface-variant font-label-md text-label-md">internal-hr</div>
+</div>
+</div>
+</td>
+<td class="p-3 whitespace-nowrap">Internal Q&amp;A</td>
+<td class="p-3 whitespace-nowrap">Human Resources</td>
+<td class="p-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-low text-on-surface border border-outline-variant">
+<span class="material-symbols-outlined text-[14px]">psychology</span> GPT-4-mini
+                                    </span>
+</td>
+<td class="p-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded font-label-md text-label-md uppercase tracking-wide" style="background-color: rgba(186, 26, 26, 0.1); color: #ba1a1a;">
+<span class="w-1.5 h-1.5 rounded-full bg-[#ba1a1a]"></span> Idle
+                                    </span>
+</td>
+<td class="p-3 whitespace-nowrap text-right font-code text-code">84</td>
+<td class="p-3 whitespace-nowrap text-right font-code text-code">$2.10</td>
+<td class="p-3 whitespace-nowrap">M. Davis</td>
+<td class="p-3 whitespace-nowrap text-right text-on-surface-variant">5d ago</td>
+<td class="p-3 whitespace-nowrap text-right">
+<button class="p-1 text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</td>
+</tr>
+<!-- More rows would follow -->
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="border-t border-outline-variant p-3 flex items-center justify-between bg-surface-container-lowest mt-auto">
+<div class="text-on-surface-variant font-body-sm text-body-sm">Showing 1 to 20 of 42 entries</div>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container-low disabled:opacity-50"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
+<button class="w-8 h-8 rounded bg-surface-container-low text-on-surface font-body-sm text-body-sm flex items-center justify-center">1</button>
+<button class="w-8 h-8 rounded text-on-surface-variant hover:bg-surface-container-low font-body-sm text-body-sm flex items-center justify-center">2</button>
+<button class="w-8 h-8 rounded text-on-surface-variant hover:bg-surface-container-low font-body-sm text-body-sm flex items-center justify-center">3</button>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container-low"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Right Side Drawer Overlay -->
+<div class="fixed inset-0 bg-on-background/20 z-40 hidden drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
+<!-- Right Side Drawer -->
+<div class="fixed top-0 right-0 h-full w-full sm:w-[480px] bg-surface-container-lowest border-l border-outline-variant z-50 transform translate-x-full transition-transform duration-300 ease-in-out drawer-shadow flex flex-col" id="configDrawer">
+<!-- Drawer Header -->
+<div class="flex items-center justify-between p-lg border-b border-outline-variant">
+<div>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Customer Support Tier 1</h2>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-1">cust-support-v2 • Active</div>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" onclick="toggleDrawer()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Drawer Content -->
+<div class="flex-1 overflow-y-auto p-lg flex flex-col gap-6">
+<!-- Section: Core Settings -->
+<div class="flex flex-col gap-4 border-b border-outline-variant pb-6">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Core Configuration</h3>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Primary Model</label>
+<select class="w-full border border-outline-variant rounded p-2 bg-surface font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:border-primary">
+<option>GPT-4o (OpenAI)</option>
+<option>Claude 3.5 Sonnet (Anthropic)</option>
+<option>Gemini 1.5 Pro (Google)</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Fallback Model <span class="text-on-surface-variant font-normal">(Optional)</span></label>
+<select class="w-full border border-outline-variant rounded p-2 bg-surface font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:border-primary">
+<option>Claude 3.5 Haiku</option>
+<option>GPT-4o-mini</option>
+<option>None</option>
+</select>
+</div>
+</div>
+<!-- Section: System Prompt -->
+<div class="flex flex-col gap-2 border-b border-outline-variant pb-6">
+<div class="flex justify-between items-center">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">System Prompt</h3>
+<button class="text-primary font-label-md text-label-md hover:underline">Edit</button>
+</div>
+<div class="bg-surface border border-outline-variant rounded p-3 font-code text-code text-on-surface-variant h-32 overflow-y-auto whitespace-pre-wrap">You are an expert customer support agent for AgentHive. Your goal is to resolve tier 1 inquiries quickly and politely. 
+
+Always check the internal KB before answering. If a query involves billing disputes &gt;$500, immediately escalate to human review. Use a professional, slightly empathetic tone.</div>
+</div>
+<!-- Section: Knowledge Base -->
+<div class="flex flex-col gap-3 border-b border-outline-variant pb-6">
+<div class="flex justify-between items-center">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Knowledge Bases Connected</h3>
+<button class="p-1 text-primary hover:bg-surface-container-low rounded"><span class="material-symbols-outlined text-[18px]">add</span></button>
+</div>
+<div class="flex items-center justify-between p-2 border border-outline-variant rounded bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">menu_book</span>
+<span class="font-body-sm text-body-sm text-on-surface">Product FAQ v2.4</span>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md">Synced 2h ago</span>
+</div>
+<div class="flex items-center justify-between p-2 border border-outline-variant rounded bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">article</span>
+<span class="font-body-sm text-body-sm text-on-surface">Refund Policies 2024</span>
+</div>
+<span class="text-on-surface-variant font-label-md text-label-md">Synced 1d ago</span>
+</div>
+</div>
+<!-- Section: Budget -->
+<div class="flex flex-col gap-4 pb-6">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Departmental Budget</h3>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-1">Monthly Spend Limit (USD)</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-body-sm">$</span>
+<input class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded bg-surface font-body-sm text-body-sm focus:ring-2 focus:ring-primary focus:border-primary" type="number" value="1000"/>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface">Alert when 80% reached</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#0D9488]"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Drawer Footer -->
+<div class="p-lg border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-3 mt-auto">
+<button class="px-4 py-2 border border-outline-variant text-on-surface rounded font-label-md text-label-md hover:bg-surface-container-low transition-colors" onclick="toggleDrawer()">Cancel</button>
+<button class="px-4 py-2 bg-[#0D9488] text-white rounded font-label-md text-label-md hover:opacity-90 transition-opacity" onclick="toggleDrawer()">Save &amp; Deploy</button>
+</div>
+</div>
+<script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('configDrawer');
+            const overlay = document.getElementById('drawerOverlay');
+            
+            if (drawer.classList.contains('translate-x-full')) {
+                // Open
+                drawer.classList.remove('translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                // Close
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+        
+        // Open drawer on load for demonstration based on prompt
+        setTimeout(() => {
+            toggleDrawer();
+        }, 500);
+    </script>
+</body></html>

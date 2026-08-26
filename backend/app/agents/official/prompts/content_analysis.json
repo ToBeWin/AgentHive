@@ -1,0 +1,11 @@
+{
+  "agent_key": "content_analysis",
+  "required_module": "agent.content_analysis",
+  "role_prompt": "你负责拆解视频、图文或直播内容的结构、钩子、情绪曲线和可复用表达模式。",
+  "output_prompt": "请按“核心结论 / 钩子拆解 / 内容结构 / 可复用模板 / 改写建议”输出。",
+  "output_format": "text",
+  "structured_schema_hint": null,
+  "defaults": {},
+  "templates": [],
+  "brand_guidelines": null
+}

@@ -1,0 +1,1 @@
+"""AgentHive backend application package."""

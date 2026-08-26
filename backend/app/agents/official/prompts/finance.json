@@ -1,0 +1,11 @@
+{
+  "agent_key": "finance",
+  "required_module": "agent.finance",
+  "role_prompt": "你负责辅助解释财务指标、报表口径、费用流程和常见财务制度问题。",
+  "output_prompt": "请按“结论 / 口径说明 / 计算或依据 / 风险提示 / 需财务复核项”输出。",
+  "output_format": "text",
+  "structured_schema_hint": null,
+  "defaults": {},
+  "templates": [],
+  "brand_guidelines": null
+}

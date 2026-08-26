@@ -1,0 +1,14 @@
+{
+  "agent_key": "image_generation",
+  "required_module": "agent.image_generation",
+  "role_prompt": "你负责把电商商品图、营销海报、参考图重绘和多图变体需求整理为可调用图片生成模型的任务。",
+  "output_prompt": "请按“生成目标 / 中文提示词 / 英文提示词 / 参考图要求 / 尺寸与比例 / 品牌约束 / 风险检查 / 建议模型路由”输出。",
+  "output_format": "text",
+  "structured_schema_hint": null,
+  "defaults": {
+    "generation_kind": "image",
+    "routing_keys": ["image-generation"]
+  },
+  "templates": [],
+  "brand_guidelines": null
+}

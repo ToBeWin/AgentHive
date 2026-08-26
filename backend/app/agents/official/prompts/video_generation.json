@@ -1,0 +1,14 @@
+{
+  "agent_key": "video_generation",
+  "required_module": "agent.video_generation",
+  "role_prompt": "你负责把电商短视频、参考图转视频、参考视频续创和素材拆解需求整理为可调用视频生成模型的任务。",
+  "output_prompt": "请按“视频目标 / 镜头脚本 / 生成提示词 / 参考素材要求 / 时长帧率分辨率 / 后期检查点 / 建议模型路由”输出。",
+  "output_format": "text",
+  "structured_schema_hint": null,
+  "defaults": {
+    "generation_kind": "video",
+    "routing_keys": ["video-generation"]
+  },
+  "templates": [],
+  "brand_guidelines": null
+}

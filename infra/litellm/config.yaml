@@ -1,0 +1,21 @@
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  database_url: os.environ/DATABASE_URL
+  store_model_in_db: true
+
+litellm_settings:
+  request_timeout: 120
+  set_verbose: false
+  drop_params: true
+
+router_settings:
+  routing_strategy: simple-shuffle
+  num_retries: 2
+  timeout: 120
+
+model_list:
+  - model_name: agenthive-local-openai-compatible
+    litellm_params:
+      model: openai/placeholder-model
+      api_base: http://host.docker.internal:11434/v1
+      api_key: os.environ/OPENAI_COMPATIBLE_API_KEY

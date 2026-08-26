@@ -1,0 +1,235 @@
+name: agenthive-dev
+
+x-backend-env: &backend-env
+  AGENTHIVE_APP_NAME: AgentHive
+  AGENTHIVE_APP_VERSION: ${AGENTHIVE_VERSION:-0.3.0-alpha.1}
+  AGENTHIVE_ENVIRONMENT: development
+  AGENTHIVE_RATE_LIMIT_BACKEND: redis
+  AGENTHIVE_TRUSTED_PROXY_CIDRS: '["127.0.0.1/32","::1/128","172.16.0.0/12"]'
+  AGENTHIVE_AUTH_COOKIE_ENABLED: "true"
+  AGENTHIVE_AUTH_COOKIE_SECURE: "false"
+  AGENTHIVE_KNOWLEDGE_UPLOAD_MAX_BYTES: ${AGENTHIVE_KNOWLEDGE_UPLOAD_MAX_BYTES:-52428800}
+  AGENTHIVE_CORS_ORIGINS: '["http://localhost:5173","http://127.0.0.1:5173","http://localhost:8080","http://127.0.0.1:8080"]'
+  DATABASE_URL: postgresql+asyncpg://agenthive:${POSTGRES_PASSWORD:-agenthive_dev_password}@postgres:5432/agenthive
+  REDIS_URL: redis://:${REDIS_PASSWORD:-agenthive_dev_redis}@redis:6379/0
+  MINIO_ENDPOINT: minio:9000
+  MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-agenthive}
+  MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-agenthive_minio_password}
+  LITELLM_BASE_URL: http://litellm:4000
+  LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY:-sk-agenthive-dev-master}
+  AGENTHIVE_FRONTEND_HEALTH_URL: http://frontend/
+  SECRET_KEY: ${SECRET_KEY:-agenthive-dev-secret-change-me}
+  RAGFLOW_URL: ${RAGFLOW_URL:-}
+  RAGFLOW_API_KEY: ${RAGFLOW_API_KEY:-}
+  RAGFLOW_HEALTH_PATH: ${RAGFLOW_HEALTH_PATH:-/health}
+  RAGFLOW_INGEST_PATH: ${RAGFLOW_INGEST_PATH:-/api/v1/agenthive/ingest}
+  RAGFLOW_RETRIEVE_PATH: ${RAGFLOW_RETRIEVE_PATH:-/api/v1/agenthive/retrieve}
+  RAGFLOW_DELETE_PATH: ${RAGFLOW_DELETE_PATH:-/api/v1/agenthive/documents/{knowledge_base_id}/{document_id}}
+  RAG_EMBEDDING_PROVIDER: llm_gateway
+  RAG_EMBEDDING_API_BASE_URL: http://embedding-bge-m3:8000
+  RAG_EMBEDDING_API_KEY: local-bge-m3-dev
+  RAG_EMBEDDING_MODEL_KEY: bge-m3
+  RAG_EMBEDDING_DIMENSIONS: "1024"
+  RAG_RERANKER_ENABLED: "true"
+  RAG_RERANKER_API_URL: http://reranker-bge:8000
+  RAG_HYBRID_RETRIEVAL_ENABLED: "true"
+
+services:
+  nginx:
+    image: nginx:1.26-alpine
+    container_name: agenthive-dev-nginx
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    restart: unless-stopped
+
+  frontend:
+    image: agenthive-frontend-dev:${AGENTHIVE_VERSION:-0.3.0-alpha.1}
+    build:
+      context: ./frontend
+    container_name: agenthive-dev-frontend
+    restart: unless-stopped
+
+  backend:
+    image: agenthive-backend-dev:${AGENTHIVE_VERSION:-0.3.0-alpha.1}
+    build:
+      context: ./backend
+    container_name: agenthive-dev-backend
+    environment: *backend-env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      litellm:
+        condition: service_started
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    restart: unless-stopped
+
+  media-worker:
+    image: agenthive-backend-dev:${AGENTHIVE_VERSION:-0.3.0-alpha.1}
+    build:
+      context: ./backend
+    container_name: agenthive-dev-media-worker
+    command:
+      [
+        "celery",
+        "-A",
+        "app.workers.celery_app.celery_app",
+        "worker",
+        "--loglevel=INFO",
+        "--queues=celery",
+      ]
+    environment: *backend-env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      litellm:
+        condition: service_started
+    restart: unless-stopped
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: agenthive-dev-postgres
+    environment:
+      POSTGRES_DB: agenthive
+      POSTGRES_USER: agenthive
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-agenthive_dev_password}
+      LITELLM_POSTGRES_DB: ${LITELLM_POSTGRES_DB:-litellm}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+      - ./infra/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agenthive -d agenthive"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: agenthive-dev-redis
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:-agenthive_dev_redis}"]
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_dev_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-agenthive_dev_redis}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: agenthive-dev-minio
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-agenthive}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-agenthive_minio_password}
+    ports:
+      - "${MINIO_API_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - minio_dev_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  litellm:
+    image: ${LITELLM_IMAGE:-ghcr.io/berriai/litellm:sha256-a1745e629abfb17d434426ff48b115f54f4f4c4a0f5af241de569e93c63c411e}
+    container_name: agenthive-dev-litellm
+    command: ["--config", "/app/config.yaml", "--port", "4000", "--host", "0.0.0.0"]
+    environment:
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY:-sk-agenthive-dev-master}
+      DATABASE_URL: postgresql://agenthive:${POSTGRES_PASSWORD:-agenthive_dev_password}@postgres:5432/${LITELLM_POSTGRES_DB:-litellm}
+      STORE_MODEL_IN_DB: "True"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${LITELLM_PORT:-4000}:4000"
+    volumes:
+      - ${LITELLM_CONFIG_FILE:-./litellm/config.yaml.example}:/app/config.yaml:ro
+    restart: unless-stopped
+
+  ragflow:
+    image: ${RAGFLOW_IMAGE:-infiniflow/ragflow:v0.26.0}
+    container_name: agenthive-dev-ragflow
+    profiles:
+      - ragflow
+    environment:
+      RAGFLOW_SERVICE_NAME: agenthive-dev-ragflow
+    volumes:
+      - ragflow_dev_data:/ragflow
+    restart: unless-stopped
+
+  embedding-bge-m3:
+    image: agenthive-embedding-bge-m3:dev
+    build:
+      context: ./services/embedding-bge-m3
+    container_name: agenthive-dev-embedding-bge-m3
+    environment:
+      BGE_MODEL_NAME: BAAI/bge-m3
+      BGE_DEVICE: cpu
+      BGE_NORMALIZE: "true"
+      HF_ENDPOINT: https://hf-mirror.com
+      MODELSCOPE_CACHE: /data/models
+    volumes:
+      - embedding_models_dev_data:/data/models
+    ports:
+      - "${EMBEDDING_PORT:-18088}:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 300s
+    restart: unless-stopped
+
+  reranker-bge:
+    image: agenthive-reranker-bge:dev
+    build:
+      context: ./services/reranker-bge
+    container_name: agenthive-dev-reranker-bge
+    environment:
+      RERANKER_MODEL_NAME: BAAI/bge-reranker-v2-m3
+      RERANKER_DEVICE: cpu
+      HF_ENDPOINT: https://hf-mirror.com
+      MODELSCOPE_CACHE: /data/models
+    volumes:
+      - reranker_models_dev_data:/data/models
+    ports:
+      - "${RERANKER_PORT:-8089}:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 300s
+    restart: unless-stopped
+
+volumes:
+  postgres_dev_data:
+  redis_dev_data:
+  minio_dev_data:
+  ragflow_dev_data:
+  reranker_models_dev_data:
+  embedding_models_dev_data:

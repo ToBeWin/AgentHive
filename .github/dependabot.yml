@@ -1,0 +1,68 @@
+version: 2
+updates:
+  # Frontend npm dependencies
+  - package-ecosystem: npm
+    directory: /frontend
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "react-router-dom"
+      build-tools:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "typescript"
+      lint:
+        patterns:
+          - "@biomejs/*"
+      testing:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+          - "jsdom"
+          - "@playwright/*"
+
+  # Backend Python dependencies (uv manages pyproject.toml + uv.lock)
+  - package-ecosystem: pip
+    directory: /backend
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      fastapi:
+        patterns:
+          - "fastapi"
+          - "uvicorn"
+      sqlalchemy:
+        patterns:
+          - "sqlalchemy"
+          - "asyncpg"
+      testing:
+        patterns:
+          - "pytest"
+          - "pytest-*"
+          - "mypy"
+          - "ruff"
+
+  # GitHub Actions versions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+
+  # Docker base images
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3

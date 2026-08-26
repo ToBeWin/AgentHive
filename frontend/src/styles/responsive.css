@@ -1,0 +1,1132 @@
+/* Auto-generated from styles.css. Do not edit manually. */
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-aside::before,
+  .auth-aside::after {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .auth-aside {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button-spinner {
+    animation-duration: 1.5s;
+  }
+}
+
+@media (max-width: 900px) {
+  .media-job-summary-grid,
+  .media-job-facts,
+  .media-governance-grid,
+  .media-governance-heading {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .refresh-spinner {
+    animation: none;
+  }
+}
+
+@media (max-width: 1040px) {
+  .overview-quick-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-workspace-v2.employee-workspace {
+    height: calc(100dvh - 64px);
+  }
+
+  .employee-workspace-v2 .employee-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr);
+    height: 100%;
+    min-height: 0;
+  }
+
+  .employee-workspace-v2 .employee-layout.result-open,
+  .employee-workspace-v2 .employee-layout.agents-collapsed.result-open {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) minmax(160px, 42vh);
+  }
+
+  .employee-workspace-v2 .employee-rail {
+    max-height: 38vh;
+    overflow: auto;
+  }
+
+  .employee-workspace-v2 .employee-result-panel {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    box-shadow: 0 -10px 28px rgba(15, 23, 42, 0.08);
+  }
+
+  .employee-workspace-v2 .employee-list {
+    max-height: 220px;
+  }
+
+  .employee-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+  }
+
+  .employee-rail {
+    max-height: none;
+  }
+
+  .employee-list {
+    max-height: 360px;
+  }
+
+  .employee-work-area {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-workspace-head {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-scenario-workspace {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-action-view .employee-scenario-workspace {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-scenario-context {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-scenario-context > div {
+    grid-column: 1 / -1;
+  }
+
+  .employee-workspace-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .employee-agent-readiness {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-focus {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-focus dl {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-task-focus button {
+    justify-self: start;
+  }
+
+  .employee-task-status {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-summary summary {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-flow-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .employee-task-flow-toggle {
+    grid-template-columns: 1fr auto;
+  }
+
+  .employee-task-flow-current {
+    grid-column: 1 / -1;
+    border-left: 0;
+    border-top: 1px solid rgba(0, 106, 97, 0.12);
+    padding-top: 8px;
+    padding-left: 0;
+  }
+
+  .employee-task-flow-workspace {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-task-flow-compact-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-task-summary-metrics {
+    justify-content: flex-start;
+  }
+
+  .employee-task-summary-hint {
+    justify-self: start;
+  }
+
+  .employee-workflow-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-brief-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-message-runtime {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-knowledge-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-metrics,
+  .employee-result-actions {
+    flex-wrap: wrap;
+  }
+
+  .agent-context-panel {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .settings-role-navigator-head,
+  .settings-role-navigator-grid,
+  .media-execution-evidence-head,
+  .media-execution-evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-workspace-head {
+    padding: 14px 14px 0;
+  }
+
+  .employee-workspace-identity strong,
+  .employee-workspace-identity small {
+    white-space: normal;
+  }
+
+  .employee-workspace-tabs {
+    margin: 0 -14px;
+    padding: 8px 14px;
+  }
+
+  .employee-scenario-launcher {
+    padding: 12px 14px;
+  }
+
+  .employee-scenario-launcher-head,
+  .employee-scenario-workspace,
+  .employee-scenario-context {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-action-view {
+    padding: var(--space-3);
+  }
+
+  .employee-context-view {
+    padding: var(--space-3);
+  }
+
+  .employee-context-brief-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .employee-context-brief-head small {
+    text-align: left;
+  }
+
+  .employee-action-view .employee-scenario-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-flow {
+    padding-inline: 14px;
+  }
+
+  .employee-task-focus {
+    padding-inline: 14px;
+  }
+
+  .employee-task-focus dl {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-flow-toggle {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-flow-toggle-action {
+    justify-self: start;
+  }
+
+  .employee-scenario-context > div {
+    grid-column: auto;
+  }
+
+  .employee-workspace-tabs .page-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-workspace-tabs .page-tab {
+    min-width: 0;
+  }
+
+  .employee-message {
+    max-width: 100%;
+  }
+
+  .employee-task-progress-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-flow-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-flow-compact-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-task-flow-detail-head {
+    grid-template-columns: 34px minmax(0, 1fr);
+  }
+
+  .employee-task-flow-detail-head .status {
+    justify-self: start;
+  }
+
+  .employee-composer {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .chat-sidebar-toggle {
+    display: inline-flex;
+  }
+
+  .chat-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    max-width: 85vw;
+    transform: translateX(-100%);
+    transition: transform 200ms ease-in-out;
+    z-index: 1000;
+    border-radius: 0;
+    border-top: 0;
+    border-bottom: 0;
+    border-left: 0;
+    padding-top: 16px;
+  }
+
+  .chat-sidebar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+  }
+
+  .chat-sidebar-head,
+  .chat-sidebar-close {
+    display: flex;
+  }
+
+  .chat-sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 999;
+    animation: chat-overlay-fade 200ms ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-sidebar {
+    transition: none;
+  }
+  .chat-sidebar-overlay {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .message {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .message-content.streaming > :last-child::after {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 760px) {
+  .selected-provider-facts,
+  .credential-protocol-hint,
+  .model-credential-progress-grid,
+  .credential-owner-grid,
+  .knowledge-create-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-window {
+    height: auto;
+  }
+
+  .chat-run-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .empty-state-icon-ring {
+    animation: none;
+  }
+}
+
+@media (max-width: 1180px) {
+  .auth-shell {
+    height: auto;
+    min-height: 100vh;
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .auth-panel {
+    min-height: 100vh;
+    overflow: visible;
+    border-right: 0;
+  }
+
+  .auth-aside {
+    display: none;
+  }
+
+  .kpi-grid,
+  .agent-concurrency-metrics,
+  .channel-type-grid,
+  .model-coverage-grid,
+  .model-protocol-grid,
+  .model-control-loop-workspace,
+  .model-handoff-checklist-grid,
+  .model-credential-progress-grid,
+  .budget-governance-grid,
+  .budget-governance-scope-panel,
+  .budget-guardrail-preview,
+  .audit-details-grid,
+  .audit-summary-grid,
+  .settings-identity-grid,
+  .settings-acceptance-overview-grid,
+  .settings-role-navigator-grid,
+  .media-execution-evidence-grid,
+  .provider-grid,
+  .module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .two-one,
+  .channel-layout,
+  .model-layout,
+  .kb-layout,
+  .modules-layout,
+  .org-admin-grid,
+  .split-admin {
+    grid-template-columns: 1fr;
+  }
+
+  .audit-events-layout.details-open {
+    grid-template-columns: 1fr;
+  }
+
+  .audit-events-layout .audit-details-panel {
+    position: static;
+    max-height: none;
+  }
+
+  .filters {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .module-action-item {
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+  }
+
+  .module-action-item .button:last-child {
+    grid-column: 2 / -1;
+    justify-self: start;
+  }
+
+  .model-control-loop-summary {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .model-handoff-checklist-head {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .kb-layout {
+    margin: 0;
+  }
+
+  .knowledge-readiness-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .knowledge-handoff-loop-workspace {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .knowledge-handoff-checklist-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .knowledge-handoff-loop-summary {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .knowledge-handoff-checklist-head {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .channel-handoff-loop-workspace {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .channel-handoff-checklist-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .channel-handoff-loop-summary {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .channel-handoff-checklist-head {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .media-generation-loop-workspace {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .media-generation-loop-summary {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .org-governance-loop-workspace {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .license-readiness-workspace {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .org-governance-loop-summary {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .budget-control-loop-workspace {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .budget-control-loop-summary {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .agent-rollout-loop-workspace {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .agent-rollout-loop-summary {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .agent-instance-readiness-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .agent-handoff-checklist-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .agent-handoff-checklist-head {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .channel-readiness-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .media-model-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .media-console-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .media-readiness-list {
+    grid-template-columns: 1fr;
+  }
+
+  .media-readiness-item {
+    border-right: 0;
+  }
+
+  .media-live-probe {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .model-config-panel,
+  .model-connection-history-panel,
+  .model-policy-panel,
+  .org-user-access-note,
+  .org-admin-grid .permission-field {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .user-edit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-password-reset-row {
+    grid-template-columns: 1fr;
+  }
+
+  .org-governance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .inline-check {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  body {
+    overflow: auto;
+  }
+
+  .policy-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-title-row,
+  .connection-history-main {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .app-shell {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: 76px;
+    flex-basis: 76px;
+    padding: 14px 10px;
+  }
+
+  .brand div:not(.brand-mark),
+  .nav-item span {
+    display: none;
+  }
+
+  .workspace {
+    min-width: 0;
+  }
+
+  .topbar {
+    gap: 8px;
+    padding: 0 14px;
+  }
+
+  .workspace-context-meta,
+  .workspace-context-switch,
+  .workspace-command-copy {
+    display: none;
+  }
+
+  .workspace-command-center {
+    display: block;
+    min-height: 0;
+    padding: 10px 14px;
+  }
+
+  .workspace-command-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .workspace-command-list {
+    margin-top: 8px;
+    grid-auto-columns: minmax(148px, 64vw);
+  }
+
+  .workspace-command-card {
+    min-height: 48px;
+  }
+
+  .searchbox {
+    width: clamp(136px, 42vw, 220px);
+  }
+
+  .top-actions {
+    flex: 0 0 auto;
+    gap: 8px;
+  }
+
+  .main-canvas {
+    padding: var(--space-5);
+  }
+
+  .page-header,
+  .license-banner,
+  .filters-row {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .panel-title {
+    display: block;
+  }
+
+  .drawer {
+    width: min(100vw, 520px);
+  }
+
+  .drawer header,
+  .drawer footer,
+  .drawer-content {
+    padding: var(--space-5);
+  }
+
+  .panel h2,
+  .section-heading {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .panel h2 span {
+    display: inline;
+    margin-left: 6px;
+  }
+
+  .data-table {
+    min-width: 680px;
+  }
+
+  .page-actions,
+  .card-actions {
+    flex-wrap: wrap;
+  }
+
+  .module-action-queue-heading,
+  .module-action-item {
+    align-items: flex-start;
+  }
+
+  .module-action-queue-heading {
+    flex-direction: column;
+  }
+
+  .module-action-item {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .module-action-item .button {
+    grid-column: 2 / -1;
+    justify-self: start;
+  }
+
+  .kpi-grid,
+  .kb-layout,
+  .channel-type-grid,
+  .model-coverage-grid,
+  .model-protocol-grid,
+  .budget-governance-grid,
+  .budget-guardrail-preview,
+  .audit-details-grid,
+  .settings-identity-grid,
+  .module-grid,
+  .provider-grid,
+  .media-model-grid,
+  .two {
+    grid-template-columns: 1fr;
+  }
+
+  .media-console-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .activation-request-card {
+    grid-template-columns: 1fr;
+  }
+
+  .activation-request-card button {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .agent-governance-grid,
+  .agent-concurrency-metrics,
+  .agent-knowledge-confidence,
+  .agent-knowledge-base-list div {
+    grid-template-columns: 1fr;
+  }
+
+  .knowledge-readiness-header,
+  .knowledge-readiness-grid,
+  .knowledge-handoff-loop-workspace,
+  .knowledge-handoff-checklist-head,
+  .knowledge-handoff-checklist-grid,
+  .model-control-loop-workspace,
+  .model-handoff-checklist-head,
+  .model-handoff-checklist-grid,
+  .channel-handoff-loop-workspace,
+  .channel-handoff-checklist-head,
+  .channel-handoff-checklist-grid,
+  .media-generation-loop-workspace,
+  .license-readiness-workspace,
+  .org-governance-loop-workspace,
+  .budget-control-loop-workspace,
+  .agent-rollout-loop-workspace,
+  .agent-instance-readiness-header,
+  .agent-instance-readiness-grid,
+  .agent-handoff-checklist-head,
+  .agent-handoff-checklist-grid,
+  .channel-readiness-header,
+  .channel-readiness-grid,
+  .settings-acceptance-summary,
+  .settings-acceptance-overview-hero,
+  .settings-acceptance-overview-grid,
+  .settings-checklist-grid,
+  .settings-delivery-center-grid,
+  .settings-delivery-phase-strip,
+  .settings-delivery-center-summary,
+  .settings-role-access,
+  .settings-role-current,
+  .settings-role-grid,
+  .settings-support-grid,
+  .settings-support-status,
+  .settings-support-counts,
+  .settings-prototype-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-acceptance-gate {
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .settings-acceptance-gate .status {
+    justify-self: start;
+  }
+
+  .org-governance-loop-detail-head {
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+
+  .org-governance-loop-detail-head .status {
+    justify-self: start;
+  }
+
+  .license-readiness-detail-head {
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .license-readiness-detail-head .status {
+    justify-self: start;
+  }
+
+  .settings-role-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .panel-heading {
+    display: grid;
+  }
+
+  .budget-governance-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .drawer {
+    width: 100%;
+  }
+
+  .auth-panel {
+    min-height: 100vh;
+    padding: 32px 24px;
+  }
+
+  .auth-panel h2 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .setup-preflight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .setup-preflight-heading {
+    display: grid;
+  }
+
+  .settings-delivery-action {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .settings-delivery-action-side {
+    grid-column: 1 / -1;
+    justify-items: stretch;
+  }
+
+  .settings-delivery-action-side .button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1280px) {
+  .topbar {
+    padding: 0 18px;
+  }
+
+  .workspace-context {
+    min-width: 180px;
+    max-width: 360px;
+  }
+
+  .searchbox {
+    width: 240px;
+  }
+
+  .workspace-command-center {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "copy toggle"
+      "list list";
+    column-gap: 12px;
+    row-gap: 8px;
+    min-height: 0;
+    padding: 10px 18px;
+  }
+
+  .workspace-command-center.collapsed {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "copy toggle";
+  }
+
+  .workspace-command-copy {
+    grid-area: copy;
+    min-width: 0;
+  }
+
+  .workspace-command-toggle {
+    grid-area: toggle;
+    justify-self: end;
+  }
+
+  .workspace-command-list {
+    grid-area: list;
+    grid-auto-flow: row;
+    grid-auto-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .builder-editor-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .builder-instances-rail {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton,
+  .skeleton-line {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
+}
+
+/* ========================================
+   Responsive Breakpoints
+   ======================================== */
+/* Tablet: 768px - 1279px */
+@media (max-width: 1279px) {
+  /* Page header: reduce gap on narrower viewports */
+  .page-header {
+    gap: 16px;
+  }
+
+  /* Data table: tighten cell padding */
+  .data-table th,
+  .data-table td {
+    padding: 8px 10px;
+  }
+
+  /* Card grids: 3-4 columns → 2 columns (extends the existing
+     1180px coverage up to 1279px) */
+  .kpi-grid,
+  .module-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Form grid: 2 columns → 1 column */
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  /* Builder workspace: stack form and preview vertically (extends
+     the existing 960px coverage up to 1279px) */
+  .builder-editor-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .builder-instances-rail {
+    position: static;
+    max-height: none;
+  }
+}
+
+/* Tablet sidebar: collapse to icon-only rail (guarded with min-width
+   to avoid overriding the existing mobile sidebar rule at 760px) */
+@media (max-width: 1279px) and (min-width: 768px) {
+  .sidebar {
+    width: 56px;
+    flex-basis: 56px;
+    padding: 14px 8px;
+  }
+
+  .sidebar .brand {
+    justify-content: center;
+    gap: 0;
+  }
+
+  .sidebar .brand div:not(.brand-mark),
+  .sidebar .nav-item span,
+  .sidebar .nav-section-title,
+  .sidebar .workspace-current-view span,
+  .sidebar .workspace-current-view strong,
+  .sidebar .workspace-current-view small {
+    display: none;
+  }
+}
+
+/* Mobile: < 768px */
+@media (max-width: 767px) {
+  /* Page actions: allow wrapping on narrow screens */
+  .page-actions {
+    flex-wrap: wrap;
+  }
+
+  /* Data table: ensure horizontal scroll on narrow screens
+     (existing 760px rule already sets min-width: 680px) */
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Card grids: single column (existing 760px rule already handles
+     this; repeated here to cover the 761-767px gap) */
+  .kpi-grid,
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Form grid: single column (not covered by existing 760px rule) */
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Drawer: full viewport width (existing 760px rule already sets
+     width: 100%; max-width ensures no horizontal gaps) */
+  .drawer {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Confirm dialog (modal-like): fit mobile viewport */
+  .confirm-dialog {
+    max-width: calc(100vw - 32px);
+  }
+}
+
+/* Respect users who prefer reduced motion: collapse all animations and
+   transitions to near-zero so the interface stays usable without movement. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 1279px) {
+  .kpi-grid-skeleton {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .kpi-grid-skeleton {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 尊重用户减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

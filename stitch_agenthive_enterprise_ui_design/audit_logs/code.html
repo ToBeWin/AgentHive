@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgentHive - Audit Logs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#5c647a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#131b2e",
+                        "primary-container": "#008378",
+                        "secondary-fixed": "#dae2fd",
+                        "tertiary-container": "#727577",
+                        "surface-container-high": "#dce9ff",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#213145",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#3d4947",
+                        "surface-variant": "#d3e4fe",
+                        "surface-tint": "#006a61",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed": "#191c1e",
+                        "primary-fixed": "#89f5e7",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "outline": "#6d7a77",
+                        "tertiary": "#595c5e",
+                        "primary": "#00685f",
+                        "background": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "outline-variant": "#bcc9c6",
+                        "tertiary-fixed": "#e0e3e5",
+                        "surface": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#dae2fd",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-primary-fixed": "#00201d",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#f4fffc",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#6bd8cb",
+                        "secondary": "#565e74",
+                        "on-tertiary-container": "#fbfdff",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-secondary-fixed-variant": "#3f465c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Geist"],
+                        "code": ["JetBrains Mono"],
+                        "headline-md": ["Geist"],
+                        "body-md": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "display": ["Geist"],
+                        "label-md": ["Geist"],
+                        "body-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "code": ["13px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<nav class="bg-surface dark:bg-inverse-surface border-r border-outline-variant dark:border-outline fixed left-0 top-0 h-full w-[240px] flex flex-col p-md gap-sm z-50">
+<div class="flex items-center gap-3 px-3 py-4 mb-4">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">hive</span>
+</div>
+<div>
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">AgentHive</div>
+<div class="font-label-md text-label-md text-on-surface-variant">Enterprise AI Platform</div>
+</div>
+</div>
+<div class="flex flex-col gap-1 overflow-y-auto flex-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-all duration-200 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Overview
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-all duration-200 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+                Agents
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-all duration-200 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="extension">extension</span>
+                Agent Modules
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-all duration-200 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="database">database</span>
+                Knowledge Bases
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-all duration-200 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+                Chat Console
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-all duration-200 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+                Channels
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-all duration-200 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="model_training">model_training</span>
+                Models
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-all duration-200 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                Budgets &amp; Costs
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-all duration-200 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="corporate_fare">corporate_fare</span>
+                Departments &amp; Users
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+                Audit Logs
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-all duration-200 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+                License
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-all duration-200 ease-in-out rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+</nav>
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline fixed top-0 right-0 w-[calc(100%-240px)] h-16 flex items-center justify-between px-xl z-40">
+<div class="flex items-center flex-1 max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full h-9 pl-10 pr-4 bg-surface-container-low border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search resources..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<main class="ml-[240px] mt-16 min-h-[calc(100vh-64px)] p-xl w-[calc(100%-240px)]">
+<div class="max-w-[1440px] mx-auto flex flex-col gap-lg">
+<div class="flex items-center justify-between">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-background">Audit Logs</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Monitor system activities, user actions, and resource access events across the platform.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="h-9 px-4 flex items-center gap-2 bg-surface border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
+                        Export CSV
+                    </button>
+<button class="h-9 px-4 flex items-center gap-2 bg-surface border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="data_object">data_object</span>
+                        Export JSON
+                    </button>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-lg p-4 flex items-center gap-4 flex-wrap shadow-sm">
+<div class="flex flex-col gap-1 min-w-[200px] flex-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Date Range</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[16px]" data-icon="calendar_today">calendar_today</span>
+<input class="w-full h-9 pl-9 pr-3 bg-surface border border-outline-variant rounded bg-surface-container-lowest font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" readonly="" type="text" value="Last 7 Days (Oct 10 - Oct 17)"/>
+</div>
+</div>
+<div class="flex flex-col gap-1 min-w-[160px] flex-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Action Type</label>
+<div class="relative">
+<select class="w-full h-9 pl-3 pr-8 bg-surface border border-outline-variant rounded bg-surface-container-lowest font-body-sm text-body-sm text-on-surface appearance-none focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option>All Actions</option>
+<option>Login/Auth</option>
+<option>Create Agent</option>
+<option>Delete KB</option>
+<option>Modify Settings</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[16px]" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 min-w-[160px] flex-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Actor / User</label>
+<div class="relative">
+<select class="w-full h-9 pl-3 pr-8 bg-surface border border-outline-variant rounded bg-surface-container-lowest font-body-sm text-body-sm text-on-surface appearance-none focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option>All Users &amp; Systems</option>
+<option>System Accounts</option>
+<option>Human Users</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[16px]" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 min-w-[160px] flex-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Department</label>
+<div class="relative">
+<select class="w-full h-9 pl-3 pr-8 bg-surface border border-outline-variant rounded bg-surface-container-lowest font-body-sm text-body-sm text-on-surface appearance-none focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+<option>All Departments</option>
+<option>Engineering</option>
+<option>Data Science</option>
+<option>Operations</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[16px]" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</div>
+<div class="flex items-end h-full pb-[2px]">
+<button class="h-9 px-4 bg-surface-container-low text-on-surface border border-outline-variant rounded font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+                        Clear Filters
+                    </button>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant rounded-lg overflow-hidden shadow-sm flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse whitespace-nowrap">
+<thead>
+<tr class="h-10 bg-surface-container-low border-b border-outline-variant font-label-md text-label-md text-on-surface-variant">
+<th class="px-4 font-medium sticky top-0 bg-surface-container-low z-10 w-[180px]">Timestamp</th>
+<th class="px-4 font-medium sticky top-0 bg-surface-container-low z-10">Actor</th>
+<th class="px-4 font-medium sticky top-0 bg-surface-container-low z-10">Action Type</th>
+<th class="px-4 font-medium sticky top-0 bg-surface-container-low z-10">Resource</th>
+<th class="px-4 font-medium sticky top-0 bg-surface-container-low z-10 w-[100px]">Status</th>
+<th class="px-4 font-medium sticky top-0 bg-surface-container-low z-10">IP Address</th>
+<th class="px-4 font-medium sticky top-0 bg-surface-container-low z-10 w-[140px]">Request ID</th>
+<th class="px-4 font-medium sticky top-0 bg-surface-container-low z-10 w-[50px]"></th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface">
+<tr class="h-10 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors group">
+<td class="px-4 font-code text-code text-on-surface-variant">2023-10-17 14:32:01</td>
+<td class="px-4">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded bg-tertiary-container text-on-tertiary-container flex items-center justify-center text-[10px] font-bold">JD</div>
+<span>John Doe (Eng)</span>
+</div>
+</td>
+<td class="px-4">Create Agent</td>
+<td class="px-4 font-code text-code">agent_customer_support_v2</td>
+<td class="px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wider bg-primary/10 text-primary uppercase">Success</span>
+</td>
+<td class="px-4 font-code text-code text-on-surface-variant">192.168.1.104</td>
+<td class="px-4 font-code text-code text-outline">req_8f72a1b9</td>
+<td class="px-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-on-surface transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="h-10 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors group">
+<td class="px-4 font-code text-code text-on-surface-variant">2023-10-17 14:15:22</td>
+<td class="px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="smart_toy">smart_toy</span>
+<span>System (Auto-Scale)</span>
+</div>
+</td>
+<td class="px-4">Deploy Model</td>
+<td class="px-4 font-code text-code">model_gpt4_turbo_prod</td>
+<td class="px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wider bg-primary/10 text-primary uppercase">Success</span>
+</td>
+<td class="px-4 font-code text-code text-on-surface-variant">10.0.0.5 (Internal)</td>
+<td class="px-4 font-code text-code text-outline">req_3c4d5e6f</td>
+<td class="px-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-on-surface transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="h-10 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors group bg-error/5">
+<td class="px-4 font-code text-code text-on-surface-variant">2023-10-17 13:58:45</td>
+<td class="px-4">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded bg-tertiary-container text-on-tertiary-container flex items-center justify-center text-[10px] font-bold">AL</div>
+<span>Alice Lee (Ops)</span>
+</div>
+</td>
+<td class="px-4">Delete KB</td>
+<td class="px-4 font-code text-code">kb_legacy_docs_2021</td>
+<td class="px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wider bg-error/10 text-error uppercase">Failure</span>
+</td>
+<td class="px-4 font-code text-code text-on-surface-variant">192.168.1.205</td>
+<td class="px-4 font-code text-code text-outline">req_9a8b7c6d</td>
+<td class="px-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-on-surface transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="h-10 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors group">
+<td class="px-4 font-code text-code text-on-surface-variant">2023-10-17 13:45:10</td>
+<td class="px-4">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded bg-tertiary-container text-on-tertiary-container flex items-center justify-center text-[10px] font-bold">JD</div>
+<span>John Doe (Eng)</span>
+</div>
+</td>
+<td class="px-4">Login</td>
+<td class="px-4 font-code text-code text-outline">N/A</td>
+<td class="px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wider bg-primary/10 text-primary uppercase">Success</span>
+</td>
+<td class="px-4 font-code text-code text-on-surface-variant">192.168.1.104</td>
+<td class="px-4 font-code text-code text-outline">req_1b2c3d4e</td>
+<td class="px-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-on-surface transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="h-10 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors group">
+<td class="px-4 font-code text-code text-on-surface-variant">2023-10-17 12:30:00</td>
+<td class="px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="sync">sync</span>
+<span>System (Sync Job)</span>
+</div>
+</td>
+<td class="px-4">Update Budget</td>
+<td class="px-4 font-code text-code">dept_engineering_q4</td>
+<td class="px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wider bg-primary/10 text-primary uppercase">Success</span>
+</td>
+<td class="px-4 font-code text-code text-on-surface-variant">10.0.0.12 (Internal)</td>
+<td class="px-4 font-code text-code text-outline">req_5f6g7h8i</td>
+<td class="px-4 text-right">
+<button class="opacity-0 group-hover:opacity-100 text-outline hover:text-on-surface transition-all">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="h-12 border-t border-outline-variant bg-surface flex items-center justify-between px-4">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to 5 of 12,482 entries</span>
+<div class="flex items-center gap-2">
+<button class="h-8 px-2 border border-outline-variant rounded flex items-center justify-center text-outline hover:bg-surface-container-low transition-colors disabled:opacity-50">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_left">chevron_left</span>
+</button>
+<div class="flex items-center gap-1 font-body-sm text-body-sm">
+<button class="w-8 h-8 rounded bg-primary-container text-on-primary-container font-medium flex items-center justify-center">1</button>
+<button class="w-8 h-8 rounded hover:bg-surface-container-low text-on-surface flex items-center justify-center transition-colors">2</button>
+<button class="w-8 h-8 rounded hover:bg-surface-container-low text-on-surface flex items-center justify-center transition-colors">3</button>
+<span class="px-1 text-on-surface-variant">...</span>
+<button class="w-8 h-8 rounded hover:bg-surface-container-low text-on-surface flex items-center justify-center transition-colors">249</button>
+</div>
+<button class="h-8 px-2 border border-outline-variant rounded flex items-center justify-center text-outline hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

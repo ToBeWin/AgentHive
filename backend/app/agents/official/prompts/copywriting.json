@@ -1,0 +1,14 @@
+{
+  "agent_key": "copywriting",
+  "required_module": "agent.copywriting",
+  "role_prompt": "你负责为小红书、抖音、朋友圈、电商详情页等渠道生成符合品牌和平台语境的文案初稿。",
+  "output_prompt": "严格遵循用户指定的数量、字数和格式约束。如用户要求 1 个文案就只输出 1 个，要求 50 字以内就控制在 50 字以内。如用户未指定数量，默认输出 3 个可选文案方向，每个包含标题、正文、卖点、适用渠道和注意事项。如用户要求特定格式（如话题标签、emoji），必须包含这些格式元素。",
+  "output_format": "text",
+  "structured_schema_hint": null,
+  "defaults": {
+    "direction_count": 3
+  },
+  "platforms": ["xiaohongshu", "douyin", "moments", "detail_page"],
+  "templates": [],
+  "brand_guidelines": null
+}

@@ -1,0 +1,48 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+!.env.infra.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+!backend/.env.remote-infra.example
+
+# Python environments, caches, and build output
+.venv/
+backend/.venv/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node, frontend build output, and test artifacts
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+coverage/
+frontend/coverage/
+frontend/playwright-report/
+frontend/test-results/
+*.tsbuildinfo
+
+# Local browser captures and temporary screenshots
+.playwright-cli/
+frontend/.playwright-cli/
+.tmp-*.png
+frontend/.agenthive-*.png
+qa-*.png
+frontend/qa-*.png
+*.log
+
+# Runtime state and local delivery artifacts
+.agenthive/
+_emb_check/
+backups/
+diagnostics/
+*.sqlite
+*.sqlite3
+*.db

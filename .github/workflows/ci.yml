@@ -1,0 +1,223 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.12"
+  NODE_VERSION: "22"
+
+jobs:
+  frontend:
+    name: Frontend (tsc + biome + verify)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Security audit
+        run: npm audit --audit-level=high
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npx biome check src --diagnostic-level=error
+
+      - name: Verify workflows
+        run: |
+          node scripts/verify-workspace-access.mjs
+          node scripts/verify-agent-workbench-profiles.mjs
+          node scripts/verify-runtime-mode-boundary.mjs
+          node scripts/verify-delivery-readiness-workflow.mjs
+          node scripts/verify-model-governance.mjs
+          node scripts/verify-media-generation-workflow.mjs
+          node scripts/verify-channel-handoff-workflow.mjs
+          node scripts/verify-knowledge-handoff-workflow.mjs
+          node scripts/verify-budget-control-workflow.mjs
+          node scripts/verify-org-governance-workflow.mjs
+          node scripts/verify-license-readiness-workflow.mjs
+          node scripts/verify-employee-scenario-workflow.mjs
+          node scripts/verify-employee-task-flow-workflow.mjs
+          node scripts/verify-chat-run-evidence.mjs
+          node scripts/verify-audit-runtime-evidence.mjs
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+  e2e:
+    name: E2E (Playwright)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Install Playwright browsers
+        working-directory: frontend
+        run: npx playwright install --with-deps chromium
+
+      - name: Start dev stack
+        env:
+          # Pin ports to avoid collisions with other services on the runner
+          HTTP_PORT: "18080"
+          BACKEND_PORT: "18000"
+          POSTGRES_PORT: "15432"
+          REDIS_PORT: "16379"
+          MINIO_API_PORT: "19000"
+          MINIO_CONSOLE_PORT: "19001"
+          LITELLM_PORT: "14000"
+        run: |
+          # .env is gitignored; docker-compose.dev.yml has defaults for all vars via ${VAR:-default}
+          docker compose -f docker-compose.dev.yml up -d --build
+          # Wait for backend to be ready (max 120s)
+          timeout 120 bash -c 'until curl -sf http://127.0.0.1:18080/api/v1/health > /dev/null 2>&1; do sleep 2; done'
+
+      - name: Run E2E tests
+        working-directory: frontend
+        env:
+          AGENTHIVE_E2E_BASE_URL: http://127.0.0.1:18080
+        run: npx playwright test
+
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: frontend/playwright-report/
+          retention-days: 14
+
+      - name: Tear down stack
+        if: always()
+        run: docker compose -f docker-compose.dev.yml down -v
+
+  backend:
+    name: Backend (ruff + mypy + pytest)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install dependencies
+        run: uv sync --frozen --dev
+
+      - name: Ruff check
+        run: uv run ruff check app tests
+
+      - name: Security audit
+        run: |
+          uv export --frozen --no-dev --no-emit-project --format requirements-txt \
+            | uv run --with pip-audit pip-audit --strict --no-deps --disable-pip -r /dev/stdin
+
+      - name: Mypy
+        run: uv run mypy app
+
+      - name: Pytest
+        run: uv run pytest tests -q --no-header
+        env:
+          AGENTHIVE_ENVIRONMENT: development
+          SECRET_KEY: ci-test-secret-key-not-for-production-use-only-32chars
+          DATABASE_URL: postgresql+asyncpg://ci:ci@localhost:5432/agenthive_ci
+          REDIS_URL: redis://localhost:6379/0
+
+  delivery-scripts:
+    name: Delivery scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Verify agent runtime evidence
+        run: python3 scripts/verify_agent_runtime_evidence.py
+
+      - name: Verify delivery scripts
+        run: bash scripts/verify-delivery-scripts.sh
+
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan repository history and working tree
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lighthouse:
+    needs: frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+      - name: Build
+        working-directory: frontend
+        run: npm run build
+      - name: Run Lighthouse CI
+        working-directory: frontend
+        run: |
+          npm install -g @lhci/cli@0.13.x
+          npx serve -s dist -l 18080 &
+          sleep 3
+          lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

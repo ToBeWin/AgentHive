@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Agent Modules Marketplace - AgentHive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#5c647a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#131b2e",
+                      "primary-container": "#008378",
+                      "secondary-fixed": "#dae2fd",
+                      "tertiary-container": "#727577",
+                      "surface-container-high": "#dce9ff",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#213145",
+                      "on-primary": "#ffffff",
+                      "on-surface-variant": "#3d4947",
+                      "surface-variant": "#d3e4fe",
+                      "surface-tint": "#006a61",
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "surface-dim": "#cbdbf5",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-tertiary-fixed": "#191c1e",
+                      "primary-fixed": "#89f5e7",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "outline": "#6d7a77",
+                      "tertiary": "#595c5e",
+                      "primary": "#00685f",
+                      "background": "#f8f9ff",
+                      "on-background": "#0b1c30",
+                      "outline-variant": "#bcc9c6",
+                      "tertiary-fixed": "#e0e3e5",
+                      "surface": "#f8f9ff",
+                      "on-tertiary": "#ffffff",
+                      "secondary-container": "#dae2fd",
+                      "on-primary-fixed-variant": "#005049",
+                      "on-primary-fixed": "#00201d",
+                      "on-secondary": "#ffffff",
+                      "on-primary-container": "#f4fffc",
+                      "surface-bright": "#f8f9ff",
+                      "surface-container-low": "#eff4ff",
+                      "surface-container": "#e5eeff",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-surface": "#0b1c30",
+                      "inverse-primary": "#6bd8cb",
+                      "secondary": "#565e74",
+                      "on-tertiary-container": "#fbfdff",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "primary-fixed-dim": "#6bd8cb",
+                      "on-secondary-fixed-variant": "#3f465c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "gutter": "16px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "sm": "8px",
+                      "base": "4px",
+                      "xs": "4px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Geist"
+                      ],
+                      "code": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "display": [
+                              "Geist"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "code": [
+                              "13px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-240px)] h-16 bg-surface border-b border-outline-variant flex items-center justify-between px-xl z-50">
+<div class="flex items-center gap-md">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">AgentHive</h1>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low transition-colors p-sm rounded-full">language</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low transition-colors p-sm rounded-full">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low transition-colors p-sm rounded-full">account_circle</span>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[240px] bg-surface border-r border-outline-variant flex flex-col p-md gap-sm z-50">
+<div class="flex flex-col gap-base mb-lg px-sm">
+<span class="font-headline-md text-headline-md font-bold text-primary">AgentHive</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Enterprise AI Platform</span>
+</div>
+<div class="flex flex-col gap-base">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span> Overview
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">smart_toy</span> Agents
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">extension</span> Agent Modules
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">database</span> Knowledge Bases
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">chat</span> Chat Console
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">hub</span> Channels
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">model_training</span> Models
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">payments</span> Budgets &amp; Costs
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">corporate_fare</span> Departments &amp; Users
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">history_edu</span> Audit Logs
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px]">workspace_premium</span> License
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-lg font-label-md text-label-md mt-auto" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span> Settings
+            </a>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pl-[240px] pt-16 min-h-screen bg-surface-container-lowest">
+<div class="max-w-[container-max] mx-auto p-xl flex gap-xl h-full">
+<!-- Sidebar Filters -->
+<aside class="w-64 shrink-0 flex flex-col gap-lg border-r border-outline-variant pr-md">
+<div class="flex flex-col gap-md">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase">Categories</h3>
+<div class="flex flex-col gap-base">
+<label class="flex items-center gap-sm cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4 bg-surface" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">All Modules</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4 bg-surface" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Customer Support</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4 bg-surface" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Human Resources</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4 bg-surface" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Marketing</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4 bg-surface" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Finance</span>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-md">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase">License Status</h3>
+<div class="flex flex-col gap-base">
+<label class="flex items-center gap-sm cursor-pointer group">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4 bg-surface" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Licensed</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer group">
+<input class="rounded border-outline-variant text-primary focus:ring-primary h-4 w-4 bg-surface" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface group-hover:text-primary transition-colors">Requires Upgrade</span>
+</label>
+</div>
+</div>
+</aside>
+<!-- Grid Content -->
+<div class="flex-1 flex flex-col gap-lg">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Agent Modules Marketplace</h2>
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface border border-outline-variant rounded-lg font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" placeholder="Search modules..." type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Card 1 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col gap-md hover:bg-[#F1F5F9] transition-colors group">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center text-primary group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">support_agent</span>
+</div>
+<span class="bg-primary/10 text-primary font-label-md text-label-md px-2 py-1 rounded">INSTALLED</span>
+</div>
+<div class="flex flex-col gap-base">
+<h4 class="font-headline-md text-headline-md text-on-surface">Customer Service Assistant</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Handles tier 1 support queries, ticket routing, and automated knowledge base retrieval for common customer issues.</p>
+</div>
+<div class="mt-auto pt-md flex gap-sm border-t border-outline-variant">
+<button class="flex-1 bg-surface border border-outline-variant text-on-surface font-label-md text-label-md py-2 rounded-lg hover:bg-surface-container-low transition-colors">Configure</button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-surface-tint transition-colors">Enable</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col gap-md hover:bg-[#F1F5F9] transition-colors group">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center text-primary group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">contact_page</span>
+</div>
+<span class="bg-primary/10 text-primary font-label-md text-label-md px-2 py-1 rounded">ENABLED</span>
+</div>
+<div class="flex flex-col gap-base">
+<h4 class="font-headline-md text-headline-md text-on-surface">HR Resume Screening</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Automatically parses and scores incoming resumes against job descriptions, highlighting key qualifications.</p>
+</div>
+<div class="mt-auto pt-md flex gap-sm border-t border-outline-variant">
+<button class="flex-1 bg-surface border border-outline-variant text-on-surface font-label-md text-label-md py-2 rounded-lg hover:bg-surface-container-low transition-colors">Configure</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col gap-md hover:bg-[#F1F5F9] transition-colors group opacity-75">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center text-on-surface-variant group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">edit_document</span>
+</div>
+<span class="bg-surface-variant text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">NOT LICENSED</span>
+</div>
+<div class="flex flex-col gap-base">
+<h4 class="font-headline-md text-headline-md text-on-surface">Copywriting Assistant</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Generates marketing copy, email campaigns, and social media posts aligned with brand voice guidelines.</p>
+</div>
+<div class="mt-auto pt-md flex gap-sm border-t border-outline-variant">
+<button class="w-full bg-surface border border-outline-variant text-on-surface font-label-md text-label-md py-2 rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">lock</span> Request License
+                            </button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col gap-md hover:bg-[#F1F5F9] transition-colors group">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center text-primary group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">analytics</span>
+</div>
+<span class="bg-surface-variant text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">AVAILABLE</span>
+</div>
+<div class="flex flex-col gap-base">
+<h4 class="font-headline-md text-headline-md text-on-surface">Content Analysis Assistant</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Analyzes large datasets of user feedback and reviews to extract sentiment trends and actionable insights.</p>
+</div>
+<div class="mt-auto pt-md flex gap-sm border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary py-2 rounded-lg font-label-md text-label-md hover:bg-surface-tint transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">download</span> Install Module
+                            </button>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col gap-md hover:bg-[#F1F5F9] transition-colors group">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center text-primary group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">description</span>
+</div>
+<span class="bg-primary/10 text-primary font-label-md text-label-md px-2 py-1 rounded">ENABLED</span>
+</div>
+<div class="flex flex-col gap-base">
+<h4 class="font-headline-md text-headline-md text-on-surface">Report Writer</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Synthesizes meeting notes and raw data into structured executive summaries and formal reports.</p>
+</div>
+<div class="mt-auto pt-md flex gap-sm border-t border-outline-variant">
+<button class="flex-1 bg-surface border border-outline-variant text-on-surface font-label-md text-label-md py-2 rounded-lg hover:bg-surface-container-low transition-colors">Configure</button>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface border border-outline-variant rounded-lg p-md flex flex-col gap-md hover:bg-[#F1F5F9] transition-colors group opacity-75">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low border border-outline-variant flex items-center justify-center text-on-surface-variant group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">account_balance</span>
+</div>
+<span class="bg-surface-variant text-on-surface-variant font-label-md text-label-md px-2 py-1 rounded">NOT LICENSED</span>
+</div>
+<div class="flex flex-col gap-base">
+<h4 class="font-headline-md text-headline-md text-on-surface">Finance Assistant</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Automates invoice processing, expense categorization, and preliminary budget variance analysis.</p>
+</div>
+<div class="mt-auto pt-md flex gap-sm border-t border-outline-variant">
+<button class="w-full bg-surface border border-outline-variant text-on-surface font-label-md text-label-md py-2 rounded-lg hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">lock</span> Request License
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

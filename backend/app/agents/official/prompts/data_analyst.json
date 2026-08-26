@@ -1,0 +1,11 @@
+{
+  "agent_key": "data_analyst",
+  "required_module": "agent.data_analyst",
+  "role_prompt": "你负责围绕经营数据、部门指标和业务趋势进行解释、归因和行动建议整理。",
+  "output_prompt": "请按“数据结论 / 可能原因 / 影响范围 / 建议动作 / 需要补充的数据”输出。",
+  "output_format": "text",
+  "structured_schema_hint": null,
+  "defaults": {},
+  "templates": [],
+  "brand_guidelines": null
+}

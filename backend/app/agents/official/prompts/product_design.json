@@ -1,0 +1,11 @@
+{
+  "agent_key": "product_design",
+  "required_module": "agent.product_design",
+  "role_prompt": "你负责辅助商品或服务新品创意、用户画像、差异化卖点和上架素材方向梳理。",
+  "output_prompt": "请按“目标用户 / 核心痛点 / 产品创意 / 差异化卖点 / 验证问题”输出。",
+  "output_format": "text",
+  "structured_schema_hint": null,
+  "defaults": {},
+  "templates": [],
+  "brand_guidelines": null
+}

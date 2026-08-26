@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AgentHive - License Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#5c647a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#131b2e",
+                        "primary-container": "#008378",
+                        "secondary-fixed": "#dae2fd",
+                        "tertiary-container": "#727577",
+                        "surface-container-high": "#dce9ff",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#213145",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#3d4947",
+                        "surface-variant": "#d3e4fe",
+                        "surface-tint": "#006a61",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-fixed": "#191c1e",
+                        "primary-fixed": "#89f5e7",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "outline": "#6d7a77",
+                        "tertiary": "#595c5e",
+                        "primary": "#00685f",
+                        "background": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "outline-variant": "#bcc9c6",
+                        "tertiary-fixed": "#e0e3e5",
+                        "surface": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#dae2fd",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-primary-fixed": "#00201d",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#f4fffc",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface": "#0b1c30",
+                        "inverse-primary": "#6bd8cb",
+                        "secondary": "#565e74",
+                        "on-tertiary-container": "#fbfdff",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "on-secondary-fixed-variant": "#3f465c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Geist"],
+                        "code": ["JetBrains Mono"],
+                        "headline-md": ["Geist"],
+                        "body-md": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "display": ["Geist"],
+                        "label-md": ["Geist"],
+                        "body-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "code": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[240px] bg-surface dark:bg-inverse-surface border-r border-outline-variant dark:border-outline flex flex-col p-md gap-sm z-20">
+<div class="mb-lg">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">AgentHive</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Enterprise AI Platform</p>
+</div>
+<div class="flex flex-col gap-sm flex-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-md text-label-md">Agents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">extension</span>
+<span class="font-label-md text-label-md">Agent Modules</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="font-label-md text-label-md">Knowledge Bases</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="font-label-md text-label-md">Chat Console</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-label-md text-label-md">Channels</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">model_training</span>
+<span class="font-label-md text-label-md">Models</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Budgets &amp; Costs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">corporate_fare</span>
+<span class="font-label-md text-label-md">Departments &amp; Users</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-label-md text-label-md">Audit Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-md text-label-md">License</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-on-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-[240px] flex flex-col h-full bg-surface-bright relative">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-240px)] h-16 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex items-center justify-between px-xl z-10">
+<div class="flex items-center">
+<!-- Search bar would go here, omitting for brevity to focus on layout as requested in UI prompt -->
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="pl-10 pr-4 py-1.5 border border-outline-variant rounded-md bg-surface-container-lowest text-on-surface font-body-sm focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 w-64 transition-all" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">language</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Canvas / Content Scroll -->
+<main class="flex-1 mt-16 p-xl overflow-y-auto w-full max-w-container-max mx-auto">
+<!-- Page Header -->
+<div class="mb-lg flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">License Management</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">许可证管理 / View and manage your AgentHive deployment license.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded hover:bg-surface-container-low transition-colors text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span>Sync License</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Status Header (Bento Style) -->
+<div class="col-span-1 lg:col-span-3 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-[#00685f]/10 flex items-center justify-center border border-[#00685f]/20">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status / 状态</p>
+<div class="flex items-center gap-3 mt-1">
+<h3 class="font-headline-md text-headline-md text-on-surface">Active</h3>
+<span class="px-2 py-0.5 rounded font-label-md text-label-md bg-[#00685f]/10 text-primary border border-primary/20">ENTERPRISE</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:items-end gap-1 border-l border-outline-variant pl-lg">
+<p class="font-label-md text-label-md text-on-surface-variant uppercase">Customer / 客户</p>
+<p class="font-body-lg text-body-lg text-on-surface font-semibold">Acme Corporation Global</p>
+</div>
+</div>
+<!-- License Details Grid -->
+<div class="col-span-1 lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md pb-sm border-b border-outline-variant">Deployment Details <span class="text-on-surface-variant font-body-sm ml-2">部署详情</span></h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-lg gap-x-md">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Deployment ID</p>
+<div class="flex items-center justify-between p-2 bg-surface-container-low rounded border border-outline-variant font-code text-code text-on-surface">
+<span>dep_982f8a7c6b5</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[16px]">content_copy</span></button>
+</div>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Install ID</p>
+<div class="flex items-center justify-between p-2 bg-surface-container-low rounded border border-outline-variant font-code text-code text-on-surface">
+<span>ins_44x9120pq</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[16px]">content_copy</span></button>
+</div>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Machine Fingerprint</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Valid / Match</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Maintenance Until</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">calendar_month</span>
+<span class="font-body-sm text-body-sm text-on-surface">December 31, 2025</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Offline Activation Section -->
+<div class="col-span-1 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md pb-sm border-b border-outline-variant">Offline Activation <span class="text-on-surface-variant font-body-sm ml-2">离线激活</span></h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-lg">For secure environments without internet access, use offline activation to apply new licenses.</p>
+<div class="flex flex-col gap-md mt-auto">
+<button class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-surface-container-lowest border border-outline-variant rounded hover:bg-surface-container-low transition-colors text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Export Activation Request</span>
+</button>
+<button class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-on-primary rounded hover:bg-primary/90 transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">upload</span>
+<span>Import License (.lic)</span>
+</button>
+</div>
+</div>
+<!-- Authorized Scope (Full Width) -->
+<div class="col-span-1 lg:col-span-3 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md pb-sm border-b border-outline-variant">Authorized Scope <span class="text-on-surface-variant font-body-sm ml-2">授权范围</span></h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-xl">
+<!-- Modules -->
+<div>
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">extension</span> Agent Modules
+                            </h4>
+<div class="bg-surface-container-low border border-outline-variant rounded overflow-hidden">
+<ul class="divide-y divide-outline-variant">
+<li class="px-4 py-3 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface">Human Resources (HR)</span>
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+</li>
+<li class="px-4 py-3 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface">Finance &amp; Accounting</span>
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+</li>
+<li class="px-4 py-3 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface">IT Service Desk</span>
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+</li>
+<li class="px-4 py-3 flex items-center justify-between bg-surface-container-lowest opacity-50">
+<span class="font-body-sm text-body-sm text-on-surface">Legal Compliance</span>
+<span class="material-symbols-outlined text-outline-variant text-[16px]">lock</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Features -->
+<div>
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide mb-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">settings_applications</span> Core Features
+                            </h4>
+<div class="bg-surface-container-low border border-outline-variant rounded overflow-hidden">
+<ul class="divide-y divide-outline-variant">
+<li class="px-4 py-3 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface">Multi-tenant Isolation</span>
+<span class="px-2 py-0.5 rounded font-label-md text-[10px] bg-[#00685f]/10 text-primary">INCLUDED</span>
+</li>
+<li class="px-4 py-3 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface">Advanced Audit Logs</span>
+<span class="px-2 py-0.5 rounded font-label-md text-[10px] bg-[#00685f]/10 text-primary">INCLUDED</span>
+</li>
+<li class="px-4 py-3 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface">Custom Model Finetuning</span>
+<span class="px-2 py-0.5 rounded font-label-md text-[10px] bg-surface-variant text-on-surface-variant">LIMITED (3)</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,55 @@
+# Prometheus scrape configuration for AgentHive.
+#
+# Deploy alongside docker-compose.observability.yml or point an existing
+# Prometheus at this file. Scrape interval 15s matches the default Grafana
+# step; tune per environment.
+#
+# Labels:
+#   - job: agenthive-backend  → /metrics endpoint (HTTP + LLM histograms)
+#   - job: agenthive-media-worker  → same metrics, different process
+#   - job: litellm  → LiteLLM proxy native /metrics
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: agenthive
+
+scrape_configs:
+  - job_name: agenthive-backend
+    metrics_path: /api/v1/metrics
+    static_configs:
+      - targets:
+          - host.docker.internal:18000
+        labels:
+          service: backend
+          env: dev
+    # For production, replace host.docker.internal with the backend service
+    # name on the same Docker network (e.g. agenthive-backend:8000).
+
+  - job_name: agenthive-media-worker
+    metrics_path: /api/v1/metrics
+    static_configs:
+      - targets:
+          - host.docker.internal:18000
+        labels:
+          service: media-worker
+          env: dev
+    # Media worker shares the backend image and exposes the same metrics
+    # endpoint via the Celery worker process. In production, point this at
+    # the media-worker service directly.
+
+  - job_name: litellm
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - host.docker.internal:14000
+        labels:
+          service: litellm
+          env: dev
+
+  # Optional: scrape Prometheus itself for self-monitoring.
+  - job_name: prometheus
+    static_configs:
+      - targets:
+          - localhost:9090

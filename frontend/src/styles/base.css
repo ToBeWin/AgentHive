@@ -1,0 +1,222 @@
+/* Auto-generated from styles.css. Do not edit manually. */
+
+:root {
+  font-family:
+    Geist, "Noto Sans SC", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #0b1c30;
+  background: #f8f9ff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --surface-soft: #f3f7fb;
+  --surface-blue: #eff4ff;
+  --line: #cbd5dd;
+  --line-soft: #e1e8ed;
+  --text: #0b1c30;
+  --ink: #31423f;
+  --muted: #4b5b68;
+  --faint: #7b8994;
+  --primary: #006a61;
+  --primary-2: #0d9488;
+  --primary-soft: #dff3ef;
+  --success-soft: #dff3ef;
+  --danger: #ba1a1a;
+  --danger-soft: #fde8e8;
+  --warning: #b45309;
+  --warning-soft: #fff3d8;
+  --focus-ring: 0 0 0 3px rgba(0, 106, 97, 0.16);
+  --shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+  /* Design tokens — spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  /* Design tokens — radius */
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 8px;
+  --radius-full: 999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  overflow: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  box-sizing: border-box;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(0, 106, 97, 0.72);
+  outline-offset: 2px;
+}
+
+code {
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+}
+
+label,
+.field-block {
+  display: block;
+  color: #172522;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+input[type="number"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"] {
+  width: 100%;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: #f8f9ff;
+  color: var(--text);
+  padding: 0 10px;
+  margin-top: 6px;
+  outline: 0;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: #f8f9ff;
+  color: var(--text);
+  padding: var(--space-3);
+  margin-top: 6px;
+  outline: 0;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+table .empty-state {
+  min-height: 160px;
+  padding: 24px 16px;
+}
+
+/* Global keyboard focus indicator. Removes the default :focus outline
+   (mouse clicks no longer show a focus ring) while keeping a strong,
+   theme-aware :focus-visible ring for keyboard navigation. */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* 输入框 focus 过渡 */
+input:focus,
+select:focus,
+textarea:focus {
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+/* ===== 视觉提升：滚动条、selection、过渡 ===== */
+/* 自定义滚动条 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--faint);
+}
+
+/* 文本选中样式 */
+::selection {
+  background: var(--primary-soft);
+  color: var(--text);
+}
+
+/* 输入框 focus 平滑过渡 */
+input,
+select,
+textarea {
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+/* 链接 hover 过渡 */
+a {
+  transition: color 140ms ease;
+}

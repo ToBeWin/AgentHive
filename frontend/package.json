@@ -1,0 +1,46 @@
+{
+  "name": "agenthive-frontend",
+  "private": true,
+  "version": "0.3.0-alpha.1",
+  "type": "module",
+  "engines": {
+    "node": ">=22 <23"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "check": "tsc -b && biome check src --diagnostic-level=error && node scripts/verify-workspace-access.mjs && node scripts/verify-agent-workbench-profiles.mjs && node scripts/verify-runtime-mode-boundary.mjs && node scripts/verify-delivery-readiness-workflow.mjs && node scripts/verify-model-governance.mjs && node scripts/verify-media-generation-workflow.mjs && node scripts/verify-channel-handoff-workflow.mjs && node scripts/verify-knowledge-handoff-workflow.mjs && node scripts/verify-budget-control-workflow.mjs && node scripts/verify-org-governance-workflow.mjs && node scripts/verify-license-readiness-workflow.mjs && node scripts/verify-employee-scenario-workflow.mjs && node scripts/verify-employee-task-flow-workflow.mjs && node scripts/verify-chat-run-evidence.mjs && node scripts/verify-audit-runtime-evidence.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "e2e": "playwright test",
+    "e2e:install": "playwright install --with-deps chromium",
+    "format": "biome format --write src"
+  },
+  "dependencies": {
+    "@sentry/react": "^8.40.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
+    "@playwright/test": "^1.49.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitest/coverage-v8": "^4.1.10",
+    "jsdom": "^25.0.1",
+    "playwright": "^1.60.0",
+    "vitest": "^4.1.10"
+  }
+}

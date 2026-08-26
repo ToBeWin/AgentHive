@@ -1,0 +1,612 @@
+/* Final responsive layer. Import after all feature styles so shared layout
+   rules remain authoritative across the app shell and core workspaces. */
+
+:root {
+  --content-gutter-compact: 16px;
+  --content-gutter-comfortable: 24px;
+  --page-section-gap: 24px;
+  --page-section-gap-compact: 18px;
+  --mobile-navigation-width: min(88vw, 336px);
+}
+
+.kpi-grid,
+.kpi-grid-skeleton {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+}
+
+.metric-card,
+.metric-card-info,
+.page,
+.page-header,
+.panel,
+.provider-card,
+.employee-layout,
+.employee-chat-panel,
+.employee-result-panel,
+.employee-rail {
+  min-width: 0;
+}
+
+.api-notice {
+  align-items: flex-start;
+  min-height: 0;
+}
+
+.api-notice-body,
+.api-notice-actions {
+  min-width: 0;
+}
+
+.status {
+  border: 1px solid transparent;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+.status-healthy,
+.status-active,
+.status-configured,
+.status-pass,
+.status-ready {
+  border-color: rgba(0, 104, 95, 0.14);
+}
+
+.status-degraded,
+.status-not_configured,
+.status-ready_with_warnings {
+  border-color: rgba(180, 83, 9, 0.16);
+}
+
+.status-error,
+.status-attention,
+.status-blocker,
+.status-blocked,
+.status-failed,
+.status-failure,
+.status-unhealthy,
+.status-warning,
+.status-expired {
+  border-color: rgba(186, 26, 26, 0.16);
+}
+
+.page-header h1,
+.panel h2,
+.panel h3,
+.selected-provider-main strong,
+.model-control-loop-summary strong,
+.employee-task-focus strong {
+  overflow-wrap: anywhere;
+}
+
+/* Overview: the dashboard reads as a sequence of decisions rather than a
+   wall of equally weighted cards. */
+.overview-page {
+  display: grid;
+  gap: var(--page-section-gap);
+}
+
+.overview-page .page-header,
+.overview-page .kpi-grid,
+.overview-page .overview-quick-actions,
+.overview-page .page-tabs {
+  margin-bottom: 0;
+}
+
+.overview-page .kpi-grid {
+  gap: 12px;
+}
+
+.overview-page .metric-card {
+  min-height: 132px;
+  border-color: var(--line-soft);
+  background: var(--surface);
+  box-shadow: none;
+  padding: var(--space-4);
+}
+
+.overview-page .metric-card::after {
+  display: none;
+}
+
+.overview-page .metric-card:hover {
+  border-color: rgba(0, 106, 97, 0.3);
+  box-shadow: none;
+  transform: none;
+}
+
+.overview-page .metric-label {
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.overview-page .metric-card strong {
+  margin-top: 16px;
+}
+
+/* KPI values are atomic measures: split labels may be useful, split currency
+   values are not. Small screens already use a single-column grid and a
+   smaller fixed type scale below. */
+.overview-page .metric-value {
+  overflow-wrap: normal;
+  white-space: nowrap;
+  word-break: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+.overview-page .metric-delta-row {
+  margin-top: 10px;
+}
+
+.overview-quick-actions-block {
+  display: grid;
+  gap: 10px;
+}
+
+.overview-quick-actions-heading h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.overview-page .overview-quick-actions {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.overview-quick-action-card {
+  min-height: 64px;
+  border-color: var(--line-soft);
+  border-radius: var(--radius);
+  background: transparent;
+  padding: 12px 14px;
+}
+
+.overview-quick-action-card:hover {
+  border-color: rgba(0, 106, 97, 0.28);
+  background: #f5faf9;
+  box-shadow: none;
+}
+
+.overview-quick-action-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: #edf8f4;
+}
+
+.overview-analysis-workspace {
+  display: grid;
+  gap: 14px;
+  border-top: 1px solid var(--line-soft);
+  padding-top: var(--page-section-gap);
+}
+
+.overview-analysis-workspace > .page-tabs {
+  margin: 0;
+}
+
+/* Workbench: selected agent, current work, evidence and completed output use
+   distinct but restrained surfaces so users can scan the active path first. */
+.employee-workspace-v2 .employee-layout {
+  gap: 16px;
+}
+
+.employee-workspace-v2 .employee-rail {
+  border-color: var(--line-soft);
+  background: #fbfcfe;
+}
+
+.employee-workspace-v2 .employee-card {
+  border-color: transparent;
+  background: transparent;
+}
+
+.employee-workspace-v2 .employee-card:hover {
+  border-color: var(--line-soft);
+  background: var(--surface);
+}
+
+.employee-workspace-v2 .employee-card.selected {
+  border-color: rgba(0, 106, 97, 0.2);
+  background: #f1faf7;
+  box-shadow: inset 3px 0 0 var(--primary);
+}
+
+.employee-workspace-v2 .employee-chat-panel {
+  border-color: rgba(0, 106, 97, 0.2);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.04);
+}
+
+.employee-workspace-v2 .employee-result-panel {
+  border-color: var(--line-soft);
+  background: #fbfcfd;
+}
+
+.employee-workspace-v2 .employee-task-focus {
+  background: var(--surface);
+  padding-block: 14px;
+}
+
+.employee-workspace-v2 .employee-task-focus dl div {
+  border-color: var(--line-soft);
+  background: #fbfcfd;
+}
+
+.employee-workspace-v2 .employee-result-handoff {
+  border-top-color: rgba(0, 106, 97, 0.16);
+  background: #f7fcfa;
+}
+
+.employee-workspace-v2 .employee-run-trace div {
+  border-color: transparent;
+  border-left-color: rgba(0, 106, 97, 0.2);
+  border-radius: 0;
+  background: transparent;
+  padding-left: 12px;
+}
+
+.employee-workspace-v2 .employee-message.assistant {
+  box-shadow: none;
+}
+
+.employee-workspace-v2 .employee-message.user {
+  box-shadow: inset 0 1px 0 rgba(0, 106, 97, 0.08);
+}
+
+/* Model governance: the control summary and active decision remain primary;
+   supporting steps stay quiet until they need attention. */
+.models-page {
+  display: grid;
+  gap: var(--page-section-gap);
+}
+
+.models-page .page-header,
+.models-page > .page-tabs,
+.models-page > .form-message {
+  margin-bottom: 0;
+}
+
+.models-page .model-control-loop {
+  margin-bottom: 0;
+  border-color: var(--line-soft);
+  background: #fbfcfc;
+  box-shadow: none;
+}
+
+.models-page .model-control-loop-summary {
+  min-height: 52px;
+}
+
+.models-page .model-control-loop-summary strong {
+  font-size: 19px;
+}
+
+.models-page .model-control-loop-step {
+  border-color: transparent;
+  background: transparent;
+}
+
+.models-page .model-control-loop-step:hover,
+.models-page .model-control-loop-step.selected {
+  border-color: rgba(0, 106, 97, 0.26);
+  background: var(--surface);
+  box-shadow: none;
+}
+
+.models-page .model-control-loop-detail {
+  border-color: var(--line-soft);
+  background: var(--surface);
+}
+
+.models-page .model-credential-workspace,
+.models-page .nested-workspace {
+  display: grid;
+  gap: var(--page-section-gap-compact);
+}
+
+.models-page .nested-workspace > .page-tabs,
+.models-page .model-config-panel > .page-tabs {
+  margin-bottom: 0;
+}
+
+.models-page .model-config-panel {
+  border-color: var(--line-soft);
+}
+
+.models-page .selected-provider {
+  border-color: rgba(0, 106, 97, 0.16);
+  background: #f7fbfa;
+}
+
+@media (min-width: 768px) and (max-width: 1040px) {
+  .overview-page .overview-quick-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-workspace-v2 .employee-layout.result-open,
+  .employee-workspace-v2 .employee-layout.agents-collapsed.result-open {
+    grid-template-rows: minmax(0, 1fr) minmax(220px, 38vh);
+  }
+
+  .employee-workspace-v2 .employee-rail {
+    max-height: 32vh;
+  }
+
+  .employee-workspace-v2 .employee-task-focus {
+    gap: 10px;
+    padding-inline: var(--space-4);
+  }
+}
+
+.mobile-navigation-toggle,
+.mobile-navigation-backdrop {
+  display: none;
+}
+
+@media (min-width: 768px) and (max-width: 1040px) {
+  .topbar {
+    gap: 12px;
+    padding-inline: var(--content-gutter-comfortable);
+  }
+
+  .workspace-context {
+    min-width: 0;
+    max-width: 34vw;
+  }
+
+  .searchbox {
+    width: min(34vw, 300px);
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    overflow-x: clip;
+  }
+
+  .app-shell {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 100dvh;
+    height: auto;
+    overflow-x: clip;
+  }
+
+  .workspace {
+    width: 100%;
+    min-width: 0;
+    min-height: 100dvh;
+  }
+
+  .sidebar,
+  .sidebar-collapsed .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 300;
+    width: var(--mobile-navigation-width);
+    height: 100dvh;
+    flex-basis: var(--mobile-navigation-width);
+    overflow-y: auto;
+    padding: 18px 14px;
+    box-shadow: 18px 0 40px rgba(15, 23, 42, 0.18);
+    transform: translateX(calc(-100% - 12px));
+    transition:
+      transform 180ms ease,
+      visibility 180ms ease;
+    visibility: hidden;
+  }
+
+  .mobile-navigation-open .sidebar {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  .mobile-navigation-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 280;
+    display: block;
+    border: 0;
+    background: rgba(15, 23, 42, 0.32);
+  }
+
+  .sidebar-collapsed .brand {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .sidebar-collapsed .brand-copy,
+  .sidebar-collapsed .workspace-current-view span,
+  .sidebar-collapsed .workspace-current-view strong,
+  .sidebar-collapsed .workspace-current-view small,
+  .sidebar-collapsed .workspace-tab span,
+  .sidebar-collapsed .workspace-tab small,
+  .sidebar-collapsed .nav-item span,
+  .sidebar-collapsed .nav-section-title,
+  .sidebar-collapsed .nav-group .nav-section-title,
+  .sidebar-collapsed .agent-nav-item span {
+    display: block;
+  }
+
+  .sidebar-collapsed .workspace-switcher {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: var(--space-2);
+  }
+
+  .sidebar-collapsed .workspace-current-view,
+  .sidebar-collapsed .workspace-tab,
+  .sidebar-collapsed .agent-nav-item {
+    justify-items: stretch;
+    grid-template-columns: 16px minmax(0, 1fr);
+    padding: var(--space-2);
+  }
+
+  .sidebar-collapsed .workspace-current-view small,
+  .sidebar-collapsed .workspace-tab small {
+    grid-column: 2;
+  }
+
+  .sidebar-collapse-button,
+  .sidebar-collapsed .sidebar-collapse-button {
+    display: none;
+  }
+
+  .mobile-navigation-toggle {
+    display: inline-grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--text);
+  }
+
+  .topbar {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 8px;
+    min-height: 60px;
+    height: auto;
+    padding: 10px var(--content-gutter-compact);
+  }
+
+  .workspace-context {
+    display: none;
+  }
+
+  .topbar-search,
+  .searchbox {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .searchbox {
+    width: 100%;
+  }
+
+  .top-actions {
+    gap: 4px;
+  }
+
+  .top-actions .icon-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .main-canvas {
+    min-width: 0;
+    overflow-x: clip;
+    padding: var(--content-gutter-compact);
+  }
+
+  .page,
+  .panel {
+    max-width: 100%;
+  }
+
+  .panel {
+    padding: var(--space-4);
+  }
+
+  .panel:has(.data-table) {
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+  }
+
+  .kpi-grid,
+  .kpi-grid-skeleton {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .metric-card {
+    min-height: 128px;
+    padding: var(--space-4);
+  }
+
+  .metric-card strong {
+    margin-top: 18px;
+    font-size: 28px;
+    line-height: 34px;
+  }
+
+  .metric-card-trend {
+    align-self: flex-end;
+  }
+
+  .overview-page,
+  .models-page {
+    gap: var(--page-section-gap-compact);
+  }
+
+  .overview-analysis-workspace {
+    padding-top: var(--page-section-gap-compact);
+  }
+
+  .overview-quick-action-card {
+    min-height: 60px;
+  }
+
+  .overview-page .overview-quick-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .employee-workspace-v2 .employee-task-focus {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .employee-workspace-v2 .employee-message {
+    max-width: 92%;
+  }
+
+  .models-page .model-control-loop-summary-status {
+    justify-content: flex-start;
+  }
+
+  .provider-card .status {
+    position: static;
+    margin-top: 12px;
+  }
+
+  .employee-workspace-v2.employee-workspace {
+    height: auto;
+    min-height: 0;
+  }
+
+  .employee-workspace-v2 .employee-layout,
+  .employee-workspace-v2 .employee-layout.result-open,
+  .employee-workspace-v2 .employee-layout.agents-collapsed.result-open {
+    height: auto;
+    grid-template-rows: auto;
+  }
+
+  .employee-workspace-v2 .employee-rail {
+    max-height: 42vh;
+  }
+
+  .employee-workspace-v2 .employee-result-panel {
+    min-height: 240px;
+  }
+
+  .employee-task-focus,
+  .employee-task-summary summary,
+  .employee-scenario-context,
+  .model-control-loop-summary,
+  .model-control-loop-detail-head {
+    min-width: 0;
+  }
+
+  .api-notice {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px;
+    padding: var(--space-3);
+  }
+
+  .auth-panel {
+    min-height: 100dvh;
+    padding: 28px var(--content-gutter-compact);
+  }
+}

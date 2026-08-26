@@ -1,0 +1,60 @@
+# AgentHive observability stack: Prometheus + Grafana.
+#
+# Usage:
+#   docker compose -f observability/docker-compose.observability.yml up -d
+#   GRAFANA_ADMIN_PASSWORD='replace-with-a-strong-password' \
+#     docker compose -f observability/docker-compose.observability.yml up -d
+#
+# This stack is opt-in and does not affect the core platform. It scrapes the
+# existing /api/v1/metrics endpoint exposed by the AgentHive backend.
+#
+# Prometheus:  http://localhost:19090
+# Grafana:     http://127.0.0.1:13000  (credentials supplied through env)
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: agenthive-prometheus
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${PROMETHEUS_PORT:-19090}:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=15d
+      - --web.console.libraries=/usr/share/prometheus/console_libraries
+      - --web.console.templates=/usr/share/prometheus/consoles
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: agenthive-grafana
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    ports:
+      - "127.0.0.1:${GRAFANA_PORT:-13000}:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?Set GRAFANA_ADMIN_PASSWORD before starting observability}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q http://localhost:3000/api/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  prometheus-data:
+  grafana-data:

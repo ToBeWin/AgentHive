@@ -1,0 +1,5 @@
+DEMO_TENANT_SLUG = "demo"
+DEMO_ADMIN_EMAIL = "admin@example.com"
+DEMO_EMPLOYEE_EMAIL = "employee@example.com"
+DEMO_ADMIN_PASSWORD = "AgentHive123!"
+DEMO_BUCKET = "agenthive-demo"

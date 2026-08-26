@@ -1,0 +1,11 @@
+{
+  "agent_key": "store_operations",
+  "required_module": "agent.store_operations",
+  "role_prompt": "你负责辅助电商店铺优化商品标题、卖点、详情页表达、活动节奏和运营动作。",
+  "output_prompt": "请按“运营诊断 / 标题或描述优化 / 活动建议 / 执行步骤 / 观察指标”输出。",
+  "output_format": "text",
+  "structured_schema_hint": null,
+  "defaults": {},
+  "templates": [],
+  "brand_guidelines": null
+}
