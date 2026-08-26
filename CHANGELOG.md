@@ -2,7 +2,7 @@
 
 All notable changes to AgentHive are documented here.
 
-## [0.3.0-alpha.2] - 2026-08-26
+## [0.3.0-alpha.3] - 2026-08-26
 
 ### Fixed
 
@@ -10,6 +10,7 @@ All notable changes to AgentHive are documented here.
 - Added repository-level Gitleaks configuration and removed secret-like values from test fixtures so public CI can scan the latest commit cleanly.
 - Made runtime evidence verification include the diagnostic classifier used by the Agent runtime.
 - Corrected Dependabot Docker directories to match the repository's actual Dockerfile locations.
+- Replaced the invalid LiteLLM image tag with a verified immutable OCI digest across Compose, examples and deployment documentation.
 - Hardened the local release workflow and aligned all application, container and widget version markers.
 
 ### Verification
@@ -17,6 +18,13 @@ All notable changes to AgentHive are documented here.
 - Backend: 926 tests passed, with 58 subtests passed.
 - Local Gitleaks scan: no leaks found.
 - Runtime evidence verification: passed.
+
+## [0.3.0-alpha.2] - 2026-08-26
+
+### Fixed
+
+- Refreshed vulnerable Python dependency locks and hardened the public repository security scan.
+- Corrected runtime evidence verification and Dependabot Docker update directories.
 
 ## [0.3.0-alpha.1] - 2026-08-26
 

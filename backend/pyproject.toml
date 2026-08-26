@@ -1,6 +1,6 @@
 [project]
 name = "agenthive-backend"
-version = "0.3.0-alpha.2"
+version = "0.3.0-alpha.3"
 description = "AgentHive private deployment enterprise AI platform backend"
 requires-python = ">=3.12"
 dependencies = [

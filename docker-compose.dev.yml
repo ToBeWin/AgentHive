@@ -2,7 +2,7 @@ name: agenthive-dev
 
 x-backend-env: &backend-env
   AGENTHIVE_APP_NAME: AgentHive
-  AGENTHIVE_APP_VERSION: ${AGENTHIVE_VERSION:-0.3.0-alpha.2}
+  AGENTHIVE_APP_VERSION: ${AGENTHIVE_VERSION:-0.3.0-alpha.3}
   AGENTHIVE_ENVIRONMENT: development
   AGENTHIVE_RATE_LIMIT_BACKEND: redis
   AGENTHIVE_TRUSTED_PROXY_CIDRS: '["127.0.0.1/32","::1/128","172.16.0.0/12"]'
@@ -48,14 +48,14 @@ services:
     restart: unless-stopped
 
   frontend:
-    image: agenthive-frontend-dev:${AGENTHIVE_VERSION:-0.3.0-alpha.2}
+    image: agenthive-frontend-dev:${AGENTHIVE_VERSION:-0.3.0-alpha.3}
     build:
       context: ./frontend
     container_name: agenthive-dev-frontend
     restart: unless-stopped
 
   backend:
-    image: agenthive-backend-dev:${AGENTHIVE_VERSION:-0.3.0-alpha.2}
+    image: agenthive-backend-dev:${AGENTHIVE_VERSION:-0.3.0-alpha.3}
     build:
       context: ./backend
     container_name: agenthive-dev-backend
@@ -74,7 +74,7 @@ services:
     restart: unless-stopped
 
   media-worker:
-    image: agenthive-backend-dev:${AGENTHIVE_VERSION:-0.3.0-alpha.2}
+    image: agenthive-backend-dev:${AGENTHIVE_VERSION:-0.3.0-alpha.3}
     build:
       context: ./backend
     container_name: agenthive-dev-media-worker
@@ -154,7 +154,7 @@ services:
     restart: unless-stopped
 
   litellm:
-    image: ${LITELLM_IMAGE:-ghcr.io/berriai/litellm:sha256-a1745e629abfb17d434426ff48b115f54f4f4c4a0f5af241de569e93c63c411e}
+    image: ${LITELLM_IMAGE:-ghcr.io/berriai/litellm@sha256:addc088d27c8e6d143d933dc005b8f1a41d45978e5f3acef8e35881303c67427}
     container_name: agenthive-dev-litellm
     command: ["--config", "/app/config.yaml", "--port", "4000", "--host", "0.0.0.0"]
     environment:

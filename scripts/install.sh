@@ -61,7 +61,7 @@ random_secret() {
 write_env_file() {
     umask 077
     cat >"${ENV_FILE}" <<EOF
-AGENTHIVE_VERSION=0.3.0-alpha.2
+AGENTHIVE_VERSION=0.3.0-alpha.3
 HTTP_PORT=8080
 AGENTHIVE_PUBLIC_BASE_URL=${PUBLIC_BASE_URL_OVERRIDE}
 

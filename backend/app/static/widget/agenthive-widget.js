@@ -1,5 +1,5 @@
 /*!
- * AgentHive Web Widget SDK v0.3.0-alpha.2
+ * AgentHive Web Widget SDK v0.3.0-alpha.3
  * Lightweight embeddable chat widget for Web Widget / REST API channels.
  * Polls outbound messages from /api/v1/channels/poll/web_widget/{channelKey}
  * and sends user input via /api/v1/channels/webhook/web_widget/{channelKey}.

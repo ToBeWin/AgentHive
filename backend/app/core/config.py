@@ -16,7 +16,7 @@ PLACEHOLDER_SECRET_FRAGMENTS = (
 
 class Settings(BaseSettings):
     app_name: str = Field(default="AgentHive", validation_alias="AGENTHIVE_APP_NAME")
-    app_version: str = Field(default="0.3.0-alpha.2", validation_alias="AGENTHIVE_APP_VERSION")
+    app_version: str = Field(default="0.3.0-alpha.3", validation_alias="AGENTHIVE_APP_VERSION")
     environment: str = Field(default="development", validation_alias="AGENTHIVE_ENVIRONMENT")
     cors_origins: list[str] = Field(
         default=["http://localhost:5173", "http://127.0.0.1:5173"],

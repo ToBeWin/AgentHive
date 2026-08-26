@@ -1,6 +1,6 @@
 # Contributing to AgentHive
 
-感谢参与 AgentHive。项目仍处于 `v0.3.0-alpha.2`，欢迎围绕企业 AI 的可治理性、私有化部署、Agent 运行可靠性和用户体验提交改进。
+感谢参与 AgentHive。项目仍处于 `v0.3.0-alpha.3`，欢迎围绕企业 AI 的可治理性、私有化部署、Agent 运行可靠性和用户体验提交改进。
 
 ## 开始之前
 

@@ -1,7 +1,7 @@
 {
   "name": "agenthive",
   "private": true,
-  "version": "0.3.0-alpha.2",
+  "version": "0.3.0-alpha.3",
   "scripts": {
     "dev": "npm --prefix frontend run dev",
     "build": "npm --prefix frontend run build",

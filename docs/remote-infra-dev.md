@@ -116,7 +116,7 @@ For servers in mainland China, set `LITELLM_IMAGE` in `.env.infra` to a
 reachable GHCR mirror such as:
 
 ```bash
-LITELLM_IMAGE=ghcr.nju.edu.cn/berriai/litellm:sha256-a1745e629abfb17d434426ff48b115f54f4f4c4a0f5af241de569e93c63c411e
+LITELLM_IMAGE=ghcr.nju.edu.cn/berriai/litellm:main-latest
 ```
 
 Keep the compose file unchanged and switch only the environment variable, so

@@ -83,7 +83,7 @@ services:
     logging: *default-logging
 
   litellm:
-    image: ${LITELLM_IMAGE:-ghcr.io/berriai/litellm:sha256-a1745e629abfb17d434426ff48b115f54f4f4c4a0f5af241de569e93c63c411e}
+    image: ${LITELLM_IMAGE:-ghcr.io/berriai/litellm@sha256:addc088d27c8e6d143d933dc005b8f1a41d45978e5f3acef8e35881303c67427}
     container_name: agenthive-infra-litellm
     command: ["--config", "/app/config.yaml", "--port", "4000", "--host", "0.0.0.0"]
     environment:

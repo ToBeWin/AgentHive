@@ -1,4 +1,4 @@
-FROM agenthive-backend-dev:0.3.0-alpha.2
+FROM agenthive-backend-dev:0.3.0-alpha.3
 
 # Pin transformers<5.0: FlagEmbedding 1.4.x uses tokenizer.prepare_for_model
 # which was removed in transformers 5.x. Use 4.46.x (last compatible 4.x).
