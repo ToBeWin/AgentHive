@@ -4,7 +4,7 @@
   font-family:
     Geist, "Noto Sans SC", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #0b1c30;
-  background: #f8f9ff;
+  background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -14,6 +14,7 @@
   --surface-blue: #eff4ff;
   --line: #cbd5dd;
   --line-soft: #e1e8ed;
+  --line-strong: #aebec8;
   --text: #0b1c30;
   --ink: #31423f;
   --muted: #4b5b68;
@@ -70,11 +71,6 @@ button {
   cursor: pointer;
 }
 
-:focus-visible {
-  outline: 2px solid rgba(0, 106, 97, 0.72);
-  outline-offset: 2px;
-}
-
 code {
   font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
   font-size: 13px;
@@ -115,7 +111,7 @@ input[type="datetime-local"] {
   height: 38px;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  background: #f8f9ff;
+  background: var(--surface-soft);
   color: var(--text);
   padding: 0 10px;
   margin-top: 6px;
@@ -126,7 +122,7 @@ textarea {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  background: #f8f9ff;
+  background: var(--surface-soft);
   color: var(--text);
   padding: var(--space-3);
   margin-top: 6px;
@@ -154,9 +150,7 @@ table .empty-state {
   padding: 24px 16px;
 }
 
-/* Global keyboard focus indicator. Removes the default :focus outline
-   (mouse clicks no longer show a focus ring) while keeping a strong,
-   theme-aware :focus-visible ring for keyboard navigation. */
+/* Keep mouse interactions quiet while making keyboard navigation obvious. */
 *:focus {
   outline: none;
 }
@@ -165,6 +159,7 @@ table .empty-state {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
+  box-shadow: var(--focus-ring);
 }
 
 /* 输入框 focus 过渡 */
@@ -205,15 +200,6 @@ textarea:focus {
 ::selection {
   background: var(--primary-soft);
   color: var(--text);
-}
-
-/* 输入框 focus 平滑过渡 */
-input,
-select,
-textarea {
-  transition:
-    border-color 140ms ease,
-    box-shadow 140ms ease;
 }
 
 /* 链接 hover 过渡 */

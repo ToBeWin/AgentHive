@@ -186,6 +186,11 @@
   margin: 0;
 }
 
+.overview-chart-empty {
+  min-height: 196px;
+  margin-top: 16px;
+}
+
 /* Workbench: selected agent, current work, evidence and completed output use
    distinct but restrained surfaces so users can scan the active path first. */
 .employee-workspace-v2 .employee-layout {
@@ -544,6 +549,10 @@
 
   .overview-analysis-workspace {
     padding-top: var(--page-section-gap-compact);
+  }
+
+  .overview-chart-empty {
+    min-height: 172px;
   }
 
   .overview-quick-action-card {

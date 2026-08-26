@@ -1,3 +1,4 @@
+import { BarChart3 } from "lucide-react";
 import { useLocale } from "../../i18n-context";
 import type { DailyUsageItem } from "../../lib/api";
 
@@ -21,23 +22,32 @@ export function TokenTrendPanel({ dailyUsage }: { dailyUsage: DailyUsageItem[] }
           <h2>
             {t("overviewTokenTrend")} <span>{t("overviewTokenTrendAlt")}</span>
           </h2>
-          <div className="legend">
-            <i /> {t("overviewInput")} <i className="muted" /> {t("overviewOutput")}
-          </div>
+          {dailyUsage.length > 0 && (
+            <div className="legend">
+              <i /> {t("overviewInput")} <i className="muted" /> {t("overviewOutput")}
+            </div>
+          )}
         </div>
-        <div className="chart-line">
-          <svg viewBox="0 0 760 260" role="img" aria-labelledby="token-chart-title">
-            <title id="token-chart-title">{t("overviewTokenChartTitle")}</title>
-            <polyline points={trendPoints} fill="none" stroke="#008378" strokeWidth="3" />
-          </svg>
-          <div className="axis-labels">
-            {dailyUsage.length ? (
-              dailyUsage.map((item) => <span key={item.date}>{item.date.slice(5) || item.date}</span>)
-            ) : (
-              <span>{t("overviewNoData")}</span>
-            )}
+        {dailyUsage.length > 0 ? (
+          <div className="chart-line">
+            <svg viewBox="0 0 760 260" role="img" aria-labelledby="token-chart-title">
+              <title id="token-chart-title">{t("overviewTokenChartTitle")}</title>
+              <polyline points={trendPoints} fill="none" stroke="#008378" strokeWidth="3" />
+            </svg>
+            <div className="axis-labels">
+              {dailyUsage.map((item) => (
+                <span key={item.date}>{item.date.slice(5) || item.date}</span>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="overview-chart-empty" role="status">
+            <span className="overview-chart-empty-icon" aria-hidden="true">
+              <BarChart3 size={20} strokeWidth={1.8} />
+            </span>
+            <strong>{t("overviewNoData")}</strong>
+          </div>
+        )}
       </section>
     </div>
   );

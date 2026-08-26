@@ -501,6 +501,37 @@
   display: block;
 }
 
+.overview-chart-empty {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+  color: var(--muted);
+  text-align: center;
+}
+
+.overview-chart-empty-icon {
+  display: inline-grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid rgba(0, 106, 97, 0.18);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--primary);
+}
+
+.overview-chart-empty strong {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 750;
+}
+
 .axis-labels {
   height: 34px;
   display: grid;
