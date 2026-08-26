@@ -316,4 +316,13 @@ export const agentsEn: Messages = {
   agentAssignmentsLoadError: "Failed to load agent assignments.",
   agentAssignmentsAssignError: "Failed to assign users.",
   agentAssignmentsRemoveError: "Failed to remove user.",
+  agentsInstanceSearchLabel: "Search Agent instances",
+  agentsInstanceSearchPlaceholder: "Search name, route, module, or knowledge base",
+  agentsInstanceFilterLabel: "Status",
+  agentsInstanceFilterAll: "All statuses",
+  agentsInstanceFilterActive: "Active",
+  agentsInstanceFilterDisabled: "Disabled",
+  agentsInstanceResults: "{{visible}} of {{total}} instances",
+  agentsInstanceNoMatches: "No Agent instances match this view",
+  agentsInstanceNoMatchesDetail: "Try another name, route, module, or status filter.",
 };

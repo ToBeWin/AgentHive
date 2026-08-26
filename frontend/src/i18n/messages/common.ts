@@ -645,6 +645,7 @@ export const commonEn: Messages = {
     "You are viewing isolated in-memory experience data. Live Agent, knowledge, model, and billing evidence requires signing in to a real tenant.",
   runtimePrototypeExit: "Exit Prototype",
   commonRetry: "Retry",
+  commonClearSearch: "Clear search",
   commonNotFoundTitle: "Page not found",
   commonNotFoundMessage: "The page you're looking for doesn't exist or has been moved.",
   commonBackHome: "Back to home",

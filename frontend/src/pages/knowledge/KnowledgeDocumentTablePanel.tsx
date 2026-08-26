@@ -1,5 +1,5 @@
-import { FileText, FolderOpen, RefreshCw, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { FileText, FolderOpen, RefreshCw, Search, Trash2, X } from "lucide-react";
+import { useMemo, useState } from "react";
 import { ApiNotice, Button, ConfirmDialog, EmptyState, StatusBadge } from "../../components/app-ui";
 import { DEFAULT_PAGE_SIZE, paginate, TablePagination } from "../../components/TablePagination";
 import { useLocale } from "../../i18n-context";
@@ -35,18 +35,37 @@ export function KnowledgeDocumentTablePanel({
   const [pendingDeleteDoc, setPendingDeleteDoc] = useState<KnowledgeDocumentListItem | null>(null);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"all" | "indexed" | "processing" | "failed">("all");
   const columnCount = canWrite ? 5 : 4;
 
-  const datasetKey = `${selectedBase?.id ?? ""}:${documentList.length}`;
+  const filteredDocuments = useMemo(() => {
+    const normalizedQuery = query.trim().toLocaleLowerCase();
+    return documentList.filter((document) => {
+      const isProcessing = document.status === "ingesting" || document.status === "pending_upload";
+      const matchesQuery = [document.filename, document.source, document.status]
+        .join(" ")
+        .toLocaleLowerCase()
+        .includes(normalizedQuery);
+      const matchesStatus =
+        statusFilter === "all" ||
+        (statusFilter === "indexed" && document.status === "indexed") ||
+        (statusFilter === "processing" && isProcessing) ||
+        (statusFilter === "failed" && document.status === "failed");
+      return matchesQuery && matchesStatus;
+    });
+  }, [documentList, query, statusFilter]);
+
+  const datasetKey = `${selectedBase?.id ?? ""}:${documentList.length}:${query}:${statusFilter}`;
   const [lastDatasetKey, setLastDatasetKey] = useState(datasetKey);
   if (datasetKey !== lastDatasetKey) {
     setLastDatasetKey(datasetKey);
     setPage(1);
   }
 
-  const totalPages = Math.max(1, Math.ceil(documentList.length / pageSize));
+  const totalPages = Math.max(1, Math.ceil(filteredDocuments.length / pageSize));
   const safePage = Math.min(Math.max(1, page), totalPages);
-  const pagedDocuments = paginate(documentList, { page: safePage, pageSize });
+  const pagedDocuments = paginate(filteredDocuments, { page: safePage, pageSize });
 
   const confirmDeleteDoc = () => {
     const target = pendingDeleteDoc;
@@ -59,6 +78,44 @@ export function KnowledgeDocumentTablePanel({
   return (
     <div className="kb-docs-section">
       <div className="inline-note">{canWrite ? t("knowledgeUploadNote") : t("knowledgeReadonlyDocumentNote")}</div>
+      <div className="collection-toolbar knowledge-document-toolbar">
+        <label className="collection-search">
+          <Search size={16} aria-hidden="true" />
+          <span className="visually-hidden">{t("knowledgeSearchDocumentsLabel")}</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={t("knowledgeSearchDocumentsPlaceholder")}
+            aria-label={t("knowledgeSearchDocumentsLabel")}
+          />
+          {query && (
+            <button
+              className="collection-search-clear"
+              type="button"
+              onClick={() => setQuery("")}
+              aria-label={t("commonClearSearch")}
+              title={t("commonClearSearch")}
+            >
+              <X size={14} aria-hidden="true" />
+            </button>
+          )}
+        </label>
+        <label className="collection-filter">
+          <span>{t("knowledgeDocumentFilterLabel")}</span>
+          <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as typeof statusFilter)}>
+            <option value="all">{t("knowledgeDocumentFilterAll")}</option>
+            <option value="indexed">{t("knowledgeDocumentFilterIndexed")}</option>
+            <option value="processing">{t("knowledgeDocumentFilterProcessing")}</option>
+            <option value="failed">{t("knowledgeDocumentFilterFailed")}</option>
+          </select>
+        </label>
+        <span className="collection-toolbar-meta">
+          {t("knowledgeDocumentResults")
+            .replace("{{visible}}", String(filteredDocuments.length))
+            .replace("{{total}}", String(documentList.length))}
+        </span>
+      </div>
       {documentsError && (
         <ApiNotice
           title={t("knowledgeDocumentsUnavailable")}
@@ -88,6 +145,17 @@ export function KnowledgeDocumentTablePanel({
             <tr>
               <td className="table-empty-cell" colSpan={columnCount}>
                 <EmptyState icon={<FileText />} title={t("knowledgeNoDocuments")} />
+              </td>
+            </tr>
+          )}
+          {!documentsLoading && selectedBase && documentList.length > 0 && !filteredDocuments.length && (
+            <tr>
+              <td className="table-empty-cell" colSpan={columnCount}>
+                <EmptyState
+                  icon={<Search />}
+                  title={t("knowledgeNoDocumentMatches")}
+                  message={t("knowledgeNoDocumentMatchesDetail")}
+                />
               </td>
             </tr>
           )}
@@ -153,7 +221,7 @@ export function KnowledgeDocumentTablePanel({
         </tbody>
       </table>
       <TablePagination
-        total={documentList.length}
+        total={filteredDocuments.length}
         page={safePage}
         pageSize={pageSize}
         onPageChange={setPage}

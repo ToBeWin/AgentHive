@@ -226,4 +226,14 @@ export const channelsZh: Messages = {
   channelsPushInactive: "所选渠道当前不处于活跃状态。",
   channelsPushNotSupported:
     "该渠道类型不支持 vendor_api 出站下发；请使用渠道自有客户端（如 Web Widget 轮询）拉取消息。",
+  channelsSearchLabel: "搜索渠道",
+  channelsSearchPlaceholder: "搜索渠道名称、Key、类型或 Webhook",
+  channelsFilterLabel: "状态",
+  channelsFilterAll: "全部渠道",
+  channelsFilterActive: "活跃",
+  channelsFilterDisabled: "已停用",
+  channelsFilterAttention: "需要处理",
+  channelsResults: "{{visible}} / {{total}} 个渠道",
+  channelsNoMatches: "没有匹配的渠道",
+  channelsNoMatchesDetail: "请尝试其他名称、Key、类型、Webhook 或状态筛选条件。",
 };

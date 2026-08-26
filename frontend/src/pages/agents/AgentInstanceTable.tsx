@@ -1,5 +1,5 @@
-import { Bot, CheckCircle2, Eye, MessageSquare, PauseCircle, Plus, Route, Settings } from "lucide-react";
-import { useState } from "react";
+import { Bot, CheckCircle2, Eye, MessageSquare, PauseCircle, Plus, Route, Search, Settings, X } from "lucide-react";
+import { useMemo, useState } from "react";
 import { Button, EmptyState, StatusBadge } from "../../components/app-ui";
 import { SortableTh, type SortDirection, sortItems } from "../../components/SortableTh";
 import { DEFAULT_PAGE_SIZE, paginate, TablePagination } from "../../components/TablePagination";
@@ -39,9 +39,12 @@ export function AgentInstanceTable({
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);
-  const [lastInstanceCount, setLastInstanceCount] = useState(instances.length);
-  if (instances.length !== lastInstanceCount) {
-    setLastInstanceCount(instances.length);
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<"all" | "active" | "disabled">("all");
+  const filterKey = `${instances.length}:${query}:${statusFilter}`;
+  const [lastFilterKey, setLastFilterKey] = useState(filterKey);
+  if (filterKey !== lastFilterKey) {
+    setLastFilterKey(filterKey);
     setPage(1);
   }
 
@@ -51,9 +54,32 @@ export function AgentInstanceTable({
     setPage(1);
   };
 
+  const filteredInstances = useMemo(() => {
+    const normalizedQuery = query.trim().toLocaleLowerCase();
+    return instances.filter((instance) => {
+      const knowledgeLabels = knowledgeBaseLabelsForInstance(instance, knowledgeBases);
+      const searchable = [
+        agentDisplayName(instance, locale),
+        agentDisplayDescription(instance, locale),
+        instance.agent_key,
+        instance.module_key,
+        instance.model_key ?? "",
+        instance.model_routing_key ?? "",
+        instance.visibility,
+        ...knowledgeLabels,
+      ]
+        .join(" ")
+        .toLocaleLowerCase();
+      return (
+        (!normalizedQuery || searchable.includes(normalizedQuery)) &&
+        (statusFilter === "all" || instance.status === statusFilter)
+      );
+    });
+  }, [instances, knowledgeBases, locale, query, statusFilter]);
+
   const sortedInstances =
     sortKey && sortDirection
-      ? sortItems(instances, sortKey, sortDirection, (item, key) => {
+      ? sortItems(filteredInstances, sortKey, sortDirection, (item, key) => {
           switch (key) {
             case "name":
               return item.name || "";
@@ -67,7 +93,7 @@ export function AgentInstanceTable({
               return "";
           }
         })
-      : instances;
+      : filteredInstances;
 
   const totalPages = Math.max(1, Math.ceil(sortedInstances.length / pageSize));
   const safePage = Math.min(Math.max(1, page), totalPages);
@@ -75,6 +101,43 @@ export function AgentInstanceTable({
 
   return (
     <>
+      <div className="collection-toolbar agent-table-toolbar">
+        <label className="collection-search">
+          <Search size={16} aria-hidden="true" />
+          <span className="visually-hidden">{t("agentsInstanceSearchLabel")}</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder={t("agentsInstanceSearchPlaceholder")}
+            aria-label={t("agentsInstanceSearchLabel")}
+          />
+          {query && (
+            <button
+              className="collection-search-clear"
+              type="button"
+              onClick={() => setQuery("")}
+              aria-label={t("commonClearSearch")}
+              title={t("commonClearSearch")}
+            >
+              <X size={14} aria-hidden="true" />
+            </button>
+          )}
+        </label>
+        <label className="collection-filter">
+          <span>{t("agentsInstanceFilterLabel")}</span>
+          <select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value as typeof statusFilter)}>
+            <option value="all">{t("agentsInstanceFilterAll")}</option>
+            <option value="active">{t("agentsInstanceFilterActive")}</option>
+            <option value="disabled">{t("agentsInstanceFilterDisabled")}</option>
+          </select>
+        </label>
+        <span className="collection-toolbar-meta">
+          {t("agentsInstanceResults")
+            .replace("{{visible}}", String(filteredInstances.length))
+            .replace("{{total}}", String(instances.length))}
+        </span>
+      </div>
       <table className="data-table compact-table agent-instance-table">
         <thead>
           <tr>
@@ -192,6 +255,17 @@ export function AgentInstanceTable({
               </td>
             </tr>
           )}
+          {!loading && instances.length > 0 && filteredInstances.length === 0 && (
+            <tr>
+              <td className="table-empty-cell" colSpan={7}>
+                <EmptyState
+                  icon={<Search />}
+                  title={t("agentsInstanceNoMatches")}
+                  message={t("agentsInstanceNoMatchesDetail")}
+                />
+              </td>
+            </tr>
+          )}
           {loading && (
             <tr>
               <td className="table-empty-cell" colSpan={7}>
@@ -202,7 +276,7 @@ export function AgentInstanceTable({
         </tbody>
       </table>
       <TablePagination
-        total={instances.length}
+        total={filteredInstances.length}
         page={safePage}
         pageSize={pageSize}
         onPageChange={setPage}

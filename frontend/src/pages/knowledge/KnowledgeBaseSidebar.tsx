@@ -1,5 +1,5 @@
-import { Database, Plus, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { Database, Plus, Search, Trash2, X } from "lucide-react";
+import { useMemo, useState } from "react";
 import { ApiNotice, Button, ConfirmDialog, cx, EmptyState } from "../../components/app-ui";
 import { useLocale } from "../../i18n-context";
 import type {
@@ -52,6 +52,20 @@ export function KnowledgeBaseSidebar({
 }: KnowledgeBaseSidebarProps) {
   const { t } = useLocale();
   const [pendingDeleteBase, setPendingDeleteBase] = useState<KnowledgeBaseListItem | null>(null);
+  const [query, setQuery] = useState("");
+
+  const filteredBaseList = useMemo(() => {
+    const normalizedQuery = query.trim().toLocaleLowerCase();
+    if (!normalizedQuery) {
+      return baseList;
+    }
+    return baseList.filter((base) =>
+      [base.name, base.description ?? "", "rag_engine" in base ? base.rag_engine : ""]
+        .join(" ")
+        .toLocaleLowerCase()
+        .includes(normalizedQuery),
+    );
+  }, [baseList, query]);
 
   const confirmDeleteBase = () => {
     const target = pendingDeleteBase;
@@ -74,6 +88,28 @@ export function KnowledgeBaseSidebar({
       <div className="kb-sidebar-count">
         {t(countLabelKey)} · {baseList.length}
       </div>
+      <label className="collection-search kb-sidebar-search">
+        <Search size={16} aria-hidden="true" />
+        <span className="visually-hidden">{t("knowledgeSearchBasesLabel")}</span>
+        <input
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder={t("knowledgeSearchBasesPlaceholder")}
+          aria-label={t("knowledgeSearchBasesLabel")}
+        />
+        {query && (
+          <button
+            className="collection-search-clear"
+            type="button"
+            onClick={() => setQuery("")}
+            aria-label={t("commonClearSearch")}
+            title={t("commonClearSearch")}
+          >
+            <X size={14} aria-hidden="true" />
+          </button>
+        )}
+      </label>
       <div className="kb-sidebar-panel">
         {basesLoading && <div className="budget-empty-state">{t("knowledgeLoadingBases")}</div>}
         {basesError && !basesLoading && (
@@ -97,7 +133,14 @@ export function KnowledgeBaseSidebar({
             }
           />
         )}
-        {baseList.map((base) => (
+        {!basesLoading && !basesError && baseList.length > 0 && !filteredBaseList.length && (
+          <EmptyState
+            icon={<Search />}
+            title={t("knowledgeNoBaseMatches")}
+            message={t("knowledgeNoBaseMatchesDetail")}
+          />
+        )}
+        {filteredBaseList.map((base) => (
           <div className={cx("kb-card", selectedBaseId === base.id && "selected")} key={base.id}>
             <button className="kb-card-main" onClick={() => onSelectBase(base.id)} type="button">
               <div>

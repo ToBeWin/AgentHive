@@ -2016,6 +2016,112 @@
 }
 
 /* 卡片 hover 效果 */
+.collection-toolbar {
+  align-items: center;
+  background: var(--surface-soft);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0 16px;
+  padding: 8px 10px;
+}
+
+.collection-search {
+  align-items: center;
+  display: flex;
+  flex: 1 1 280px;
+  min-width: 220px;
+  position: relative;
+}
+
+.collection-search > svg {
+  color: var(--muted);
+  left: 12px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.collection-search input {
+  background: var(--surface);
+  min-height: 38px;
+  padding-left: 36px;
+  padding-right: 36px;
+  width: 100%;
+}
+
+.collection-search input[type="search"]::-webkit-search-cancel-button {
+  appearance: none;
+  display: none;
+}
+
+.collection-search-clear {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  display: inline-flex;
+  height: 28px;
+  justify-content: center;
+  position: absolute;
+  right: 7px;
+  width: 28px;
+}
+
+.collection-search-clear:hover {
+  background: var(--surface-soft);
+  color: var(--ink);
+}
+
+.collection-filter {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+  min-height: 38px;
+}
+
+.collection-filter span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.collection-filter select {
+  min-height: 38px;
+  min-width: 132px;
+  padding: 0 30px 0 10px;
+}
+
+.collection-toolbar-meta {
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.kb-sidebar-search {
+  flex: none;
+  margin-bottom: 16px;
+  min-width: 0;
+  width: 100%;
+}
+
+.provider-toolbar,
+.agent-table-toolbar,
+.knowledge-document-toolbar,
+.channel-table-toolbar {
+  margin-top: 0;
+}
+
+.table-empty-cell .empty-state {
+  min-height: 168px;
+}
+
+/* 卡片 hover 效果 */
 .card-hover {
   transition:
     box-shadow 200ms ease,

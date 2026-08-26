@@ -619,6 +619,7 @@ export const commonZh: Messages = {
     "当前展示的是隔离的内存体验数据。真实智能体、知识库、模型调用和费用证据需要登录正式租户后查看。",
   runtimePrototypeExit: "退出原型模式",
   commonRetry: "重试",
+  commonClearSearch: "清除搜索",
   commonNotFoundTitle: "页面不存在",
   commonNotFoundMessage: "您访问的页面不存在或已被移动。",
   commonBackHome: "返回首页",

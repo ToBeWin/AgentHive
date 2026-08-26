@@ -618,4 +618,27 @@
     min-height: 100dvh;
     padding: 28px var(--content-gutter-compact);
   }
+
+  .collection-toolbar {
+    align-items: stretch;
+  }
+
+  .collection-search {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+
+  .collection-filter {
+    flex: 1 1 180px;
+    justify-content: space-between;
+  }
+
+  .collection-filter select {
+    flex: 1;
+  }
+
+  .collection-toolbar-meta {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
 }

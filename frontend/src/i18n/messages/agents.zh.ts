@@ -307,4 +307,13 @@ export const agentsZh: Messages = {
   agentAssignmentsLoadError: "加载智能体分配失败。",
   agentAssignmentsAssignError: "分配用户失败。",
   agentAssignmentsRemoveError: "移除用户失败。",
+  agentsInstanceSearchLabel: "搜索智能体实例",
+  agentsInstanceSearchPlaceholder: "搜索名称、路由、模块或知识库",
+  agentsInstanceFilterLabel: "状态",
+  agentsInstanceFilterAll: "全部状态",
+  agentsInstanceFilterActive: "活跃",
+  agentsInstanceFilterDisabled: "已停用",
+  agentsInstanceResults: "{{visible}} / {{total}} 个实例",
+  agentsInstanceNoMatches: "没有匹配的智能体实例",
+  agentsInstanceNoMatchesDetail: "请尝试其他名称、路由、模块或状态筛选条件。",
 };

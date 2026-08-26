@@ -229,4 +229,14 @@ export const channelsEn: Messages = {
   channelsPushInactive: "The selected channel is not active.",
   channelsPushNotSupported:
     "This channel type does not support vendor_api outbound delivery; use the channel's own client (e.g. Web Widget polling) instead.",
+  channelsSearchLabel: "Search channels",
+  channelsSearchPlaceholder: "Search channel name, key, type, or webhook",
+  channelsFilterLabel: "Status",
+  channelsFilterAll: "All channels",
+  channelsFilterActive: "Active",
+  channelsFilterDisabled: "Disabled",
+  channelsFilterAttention: "Needs attention",
+  channelsResults: "{{visible}} of {{total}} channels",
+  channelsNoMatches: "No channels match this view",
+  channelsNoMatchesDetail: "Try another name, key, type, webhook, or status filter.",
 };
