@@ -20,15 +20,15 @@
   },
   "dependencies": {
     "@sentry/react": "^8.40.0",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^6.1.1",
     "lucide-react": "^0.468.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "^10.1.0",
     "rehype-highlight": "^7.0.2",
     "remark-gfm": "^4.0.1",
-    "typescript": "^5.7.2",
-    "vite": "^6.0.7"
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.16",
